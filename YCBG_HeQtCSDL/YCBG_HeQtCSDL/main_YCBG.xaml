@@ -1,0 +1,49 @@
+﻿<Window x:Class="YCBG_HeQtCSDL.main_YCBG"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YCBG_HeQtCSDL"
+        xmlns:local1="clr-namespace:YCBG_HeQtCSDL.ViewModel"
+        mc:Ignorable="d"
+        Title="main_YCBG" Height="450" Width="800">
+    <Grid>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="577*"/>
+                <ColumnDefinition Width="160*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="ahihi" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="Red" BorderThickness="1" Margin="5"></TextBox>
+            <Button Grid.Row="0" Grid.Column="3" BorderBrush="Red" BorderThickness="1" Margin="5">Thêm</Button>
+
+            <DataGrid Name="dtgYCBG"
+                        Grid.Row="1" Grid.ColumnSpan="4" 
+                              ColumnWidth="*"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              EnableColumnVirtualization="False"
+                              EnableRowVirtualization="False"
+                              CanUserAddRows="False"
+                      Margin="5"
+                              SelectionMode="Single" Grid.RowSpan="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="#" IsReadOnly="True" Width="30" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={local1:RowToIndexConverter}}"/>
+                    <DataGridTextColumn Header="Mã yêu cầu báo giá" IsReadOnly="True" Binding="{Binding MaYCBG}"/>
+                    <DataGridTextColumn Header="Ngày" IsReadOnly="True" Binding="{Binding NgayYCBG}"/>
+                    <DataGridTextColumn Header="Tình trạng" IsReadOnly="True" Binding="{Binding TinhTrang}"/>
+                    <DataGridTextColumn Header="Nhân viên" IsReadOnly="False" Binding="{Binding MaNV}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        
+    </Grid>
+</Window>

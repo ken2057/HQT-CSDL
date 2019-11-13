@@ -10,7 +10,7 @@
         Title="MainWindow" Height="600" Width="800">
     <Grid>
         <TabControl   HorizontalAlignment="Left" Height="550" Margin="10,10,0,0" VerticalAlignment="Top" Width="774">
-            <TabItem Header="Yêu cầu báo giá">
+            <TabItem Header="Chi tiết yêu cầu báo giá">
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -43,7 +43,7 @@
                             <DataGridTextColumn Header="Tên mặt hàng" IsReadOnly="True" Binding="{Binding TenMatHang}"/>
                             <DataGridTextColumn Header="Nhà cung cấp" IsReadOnly="True" Binding="{Binding TenNCC}"/>
                             <DataGridTextColumn Header="Số lượng" IsReadOnly="False" Binding="{Binding SoLuong}"/>
-                            <DataGridTextColumn Header="Đơn giá" IsReadOnly="True" Binding="{Binding DonGia}"/>
+                            <DataGridTextColumn Header="Giá đã báo" IsReadOnly="True" Binding="{Binding DonGia}"/>
                             <DataGridTextColumn Header="Ghi chú" IsReadOnly="True" Binding="{Binding GhiChu}"/>
                         </DataGrid.Columns>
                     </DataGrid>

@@ -82,7 +82,11 @@
     <Compile Include="EF\SanPham.cs" />
     <Compile Include="EF\YeuCauBaoGia.cs" />
     <Compile Include="EF\YeuCauMuaHang.cs" />
+    <Compile Include="main_YCBG.xaml.cs">
+      <DependentUpon>main_YCBG.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ChiTietBaoGiaVM.cs" />
+    <Compile Include="ViewModel\YeuCauBaoGiaVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="main_YCBG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

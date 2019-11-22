@@ -22,26 +22,43 @@ namespace YCBG_HeQtCSDL
     /// </summary>
     public partial class main_YCBG : Window
     {
-        public main_YCBG()
+        string connectionString;
+        public main_YCBG(string connectionString)
         {
+            this.connectionString = connectionString;
+
             InitializeComponent();
 
+            get_YCBH();
+
+            //MessageBoxResult t = MessageBox.Show(connectionString, "t");
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ThemSanPhamYCBG themSanPhamYCBG = new ThemSanPhamYCBG(this.connectionString);
+            themSanPhamYCBG.Owner = this;
+            themSanPhamYCBG.ShowDialog();
+        }
+
+        private void get_YCBH()
+        {
             YeuCauBaoGiaVM yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
             List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs = new List<YeuCauBaoGiaVM>();
             SqlDataReader rdr = null;
 
-            using (var conn = new SqlConnection("data source=.;initial catalog=qlmuahang;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"))
-            using (var command = new SqlCommand("sp_test", conn)
+            using (var conn = new SqlConnection(this.connectionString))
+            using (var command = new SqlCommand("sp_get_ycbg", conn)
             {
                 CommandType = CommandType.StoredProcedure
             })
             {
-                conn.Open();
                 try
                 {
-                    command.Parameters.Add(new SqlParameter("@flag", "0"));
+                    conn.Open();
                     rdr = command.ExecuteReader();
-                    
+
                     while (rdr.Read())
                     {
                         yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
@@ -56,18 +73,13 @@ namespace YCBG_HeQtCSDL
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
-                    throw;
                 }
-                
-                conn.Close();
-            }
-        }
+                finally
+                {
+                    conn.Close();
+                }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ThemSanPhamYCBG themSanPhamYCBG = new ThemSanPhamYCBG();
-            themSanPhamYCBG.Owner = this;
-            themSanPhamYCBG.ShowDialog();
+            }
         }
     }
 }

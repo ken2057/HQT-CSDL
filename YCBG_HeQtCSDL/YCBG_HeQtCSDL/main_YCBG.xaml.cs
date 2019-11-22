@@ -39,7 +39,7 @@ namespace YCBG_HeQtCSDL
                 conn.Open();
                 try
                 {
-                    command.Parameters.Add(new SqlParameter("@flag", "1"));
+                    command.Parameters.Add(new SqlParameter("@flag", "0"));
                     rdr = command.ExecuteReader();
                     
                     while (rdr.Read())
@@ -61,6 +61,13 @@ namespace YCBG_HeQtCSDL
                 
                 conn.Close();
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ThemSanPhamYCBG themSanPhamYCBG = new ThemSanPhamYCBG();
+            themSanPhamYCBG.Owner = this;
+            themSanPhamYCBG.ShowDialog();
         }
     }
 }

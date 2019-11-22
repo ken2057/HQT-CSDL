@@ -21,7 +21,9 @@
                 <ColumnDefinition Width="160*"/>
             </Grid.ColumnDefinitions>
             <TextBox Name="ahihi" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="Red" BorderThickness="1" Margin="5"></TextBox>
-            <Button Grid.Row="0" Grid.Column="3" BorderBrush="Red" BorderThickness="1" Margin="5">Thêm</Button>
+            <Button Grid.Row="0" Grid.Column="3"
+                    Click="Button_Click"
+                    BorderBrush="Red" BorderThickness="1" Margin="5">Thêm</Button>
 
             <DataGrid Name="dtgYCBG"
                         Grid.Row="1" Grid.ColumnSpan="4" 

@@ -85,7 +85,11 @@
     <Compile Include="main_YCBG.xaml.cs">
       <DependentUpon>main_YCBG.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ThemSanPhamYCBG.xaml.cs">
+      <DependentUpon>ThemSanPhamYCBG.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ChiTietBaoGiaVM.cs" />
+    <Compile Include="ViewModel\ThemSanPhamYCBGVM.cs" />
     <Compile Include="ViewModel\YeuCauBaoGiaVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +104,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="main_YCBG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThemSanPhamYCBG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

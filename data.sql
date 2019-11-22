@@ -9,9 +9,9 @@ go
 create user admin_db for login duy
 create user quanly1 for login nghi
 go
-sp_addrolemember @rolename='Admin', @membername='admin_db'
+sp_addrolemember @rolename='db_owner', @membername='admin_db'
 go
-sp_addrolemember @rolename='QuanLy', @membername='admin_db'
+sp_addrolemember @rolename='db_owner', @membername='quanly1'
 go
 insert into NCC (MaNCC, Email) values ('Plaza', 'jdiggelly@pbs.org');
 insert into NCC (MaNCC, Email) values ('Pass', 'cferri1i@admin.ch');

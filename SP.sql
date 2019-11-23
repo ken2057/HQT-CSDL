@@ -106,7 +106,3 @@ begin
 		RAISERROR(@ErrorMessage, 16, 1)
 	end
 end
-
-declare @temp CTYCBGType
-insert into @temp values ('1','1', '1', ''), ('1','2', '1', ''), ('1','3', '1', ''), ('1','5', '1', '')
-exec sp_add_YCBG @temp

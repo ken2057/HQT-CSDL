@@ -154,7 +154,6 @@ namespace YCBG_HeQtCSDL
             {
                 try
                 {
-                    
                     conn.Open();
 
                     DataTable table = new DataTable();
@@ -204,19 +203,71 @@ namespace YCBG_HeQtCSDL
             createNewYCBG();
         }
 
+        // check duplicate in CTYCBG
+        // if exists not add into the list
+        private bool checkExistCTYCBG(string maSP, string maNCC)
+        {
+            var flag = true;
+            themSanPhamYCBGVMs.ForEach(ct => {
+                if (ct.TenSanPham == maSP && ct.NhaCungCap == maNCC)
+                    flag = false;
+            });
+            return flag;
+        }
         
         private void btn_addCTYCBH_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // both comboBox not selected any thing
                 if (cboMaSP.SelectedItem != null && cboMaNCC.SelectedItem != null)
                 {
-                    themSanPhamYCBGVMs.Add(create_New_CTYCBG(
-                            cboMaSP.SelectedValue.ToString(),
-                            cboMaNCC.SelectedValue.ToString(),
-                            int.Parse(txtSoLuong.Text),
-                            ""
-                        ));
+                    if (checkExistCTYCBG(cboMaSP.SelectedValue.ToString(), cboMaNCC.SelectedValue.ToString()))
+                    {
+                        themSanPhamYCBGVMs.Add(create_New_CTYCBG(
+                                cboMaSP.SelectedValue.ToString(),
+                                cboMaNCC.SelectedValue.ToString(),
+                                int.Parse(txtSoLuong.Text),
+                                ""
+                            ));
+                        resetValue();
+                    }
+                }
+                // when only cbo MaSP selected 
+                //=> thêm yêu cầu báo giá cho các nhà cung cấp có sản phẩm đó
+                else if (cboMaSP.SelectedItem != null)
+                {
+                    allMaNCC.ForEach(maNCC =>
+                    {
+                        if (checkExistCTYCBG(cboMaSP.SelectedValue.ToString(), maNCC))
+                        {
+                            themSanPhamYCBGVMs.Add(create_New_CTYCBG(
+                                cboMaSP.SelectedValue.ToString(),
+                                maNCC,
+                                int.Parse(txtSoLuong.Text),
+                                ""
+                            ));
+                        }
+
+                    });
+                    resetValue();
+                }
+                // when only cbo MaNCC selected 
+                //=> thêm yêu cầu báo giá cho các sản phẩm của NCC đó
+                else if (cboMaNCC.SelectedItem != null)
+                {
+                    allMaSP.ForEach(maSP =>
+                    {
+                        if (checkExistCTYCBG(maSP, cboMaNCC.SelectedValue.ToString()))
+                        {
+                            themSanPhamYCBGVMs.Add(create_New_CTYCBG(
+                                maSP,
+                                cboMaNCC.SelectedValue.ToString(),
+                                int.Parse(txtSoLuong.Text),
+                                ""
+                            ));
+                        }
+                    });
                     resetValue();
                 }
                 else

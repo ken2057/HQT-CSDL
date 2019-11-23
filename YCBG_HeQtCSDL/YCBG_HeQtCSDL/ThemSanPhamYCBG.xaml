@@ -24,12 +24,20 @@
             <ColumnDefinition Width="160*"/>
         </Grid.ColumnDefinitions>
         <!--0-->
+        <TextBlock Text="Sản phẩm" Grid.Column="0" Grid.Row="0" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <ComboBox Name="cboMaSP" Grid.Column="0" Grid.Row="1" Margin="10" 
                   SelectionChanged="cboMaSP_SelectionChanged"
                   SelectedIndex="{Binding indexCboSP}"/>
+
+        <TextBlock Text="Nhà cung cấp" Grid.Column="1" Grid.Row="0" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <ComboBox Name="cboMaNCC" Grid.Column="1" Grid.Row="1" Margin="10" 
                   SelectionChanged="cboMaNCC_SelectionChanged"
                   SelectedIndex="{Binding indexCboNCC}"/>
+
+        <TextBlock Text="Số lượng" Grid.Column="2" Grid.Row="0" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBox Name="txtSoLuong" Grid.Column="2" Grid.Row="1"
                  MaxLength="5"
                  PreviewTextInput="txtSoLuong_PreviewTextInput"

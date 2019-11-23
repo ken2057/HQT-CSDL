@@ -1,8 +1,12 @@
 ﻿use qlmuahang
 go
 create proc sp_get_ycbg
+	@maYCBG varchar(10)
 as
 begin
+	if(@maYCBG <> '')
+		select * from YeuCauBaoGia where MaYCBaoGia like '%'+@maYCBG+'%'
+	else
 	select * from YeuCauBaoGia
 end
 go

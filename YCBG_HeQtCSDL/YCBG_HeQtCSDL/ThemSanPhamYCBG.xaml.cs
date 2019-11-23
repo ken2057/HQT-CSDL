@@ -28,9 +28,11 @@ namespace YCBG_HeQtCSDL
         List<string> allMaNCC;
         List<string> allMaSP;
         List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs;
+        public bool isClosed;
 
         public ThemSanPhamYCBG(string connectionString)
         {
+            isClosed = false;
             this.connectionString = connectionString;
             InitializeComponent();
 
@@ -200,7 +202,11 @@ namespace YCBG_HeQtCSDL
 
         private void btn_addYCBG_Click(object sender, RoutedEventArgs e)
         {
-            createNewYCBG();
+            // only create when have atleast 1 CTYCBG
+            if (themSanPhamYCBGVMs.Count > 0)
+                createNewYCBG();
+            else
+                MessageBox.Show("Phải có ít nhất 1 CTYBG");
         }
 
         // check duplicate in CTYCBG
@@ -283,7 +289,7 @@ namespace YCBG_HeQtCSDL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -313,6 +319,12 @@ namespace YCBG_HeQtCSDL
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            isClosed = true;
         }
     }
 }

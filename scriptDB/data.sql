@@ -1,5 +1,7 @@
 use qlmuahang
 go
+set ANSI_WARNINGS off
+go
 drop login duy
 drop login nghi
 go
@@ -234,8 +236,6 @@ insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Alley', '68', 42000
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Center', '63', 200000, 21);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Drive', '87', 6700000, 58);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Trail', '73', 6600000, 89);
-insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Plaza', '15', 1900000, 65);
-insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Alley', '60', 300000, 48);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Plaza', '81', 2100000, 75);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Park', '37', 4400000, 34);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Center', '22', 2600000, 99);
@@ -270,7 +270,6 @@ insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Drive', '5', 360000
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Hill', '48', 6000000, 51);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Lane', '46', 1000000, 55);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Street', '24', 9800000, 79);
-insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Hill', '39', 7900000, 99);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Center', '55', 4700000, 79);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Place', '92', 3800000, 41);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Lane', '77', 4700000, 71);
@@ -313,7 +312,6 @@ insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Place', '98', 90000
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Place', '98', 6400000, 48);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Terrace', '53', 1000000, 79);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Street', '28', 7400000, 57);
-insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Hill', '7', 6100000, 17);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Junction', '76', 7200000, 31);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Pass', '73', 9000000, 82);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Crossing', '44', 2100000, 97);
@@ -324,7 +322,6 @@ insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Way', '46', 2400000
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Way', '51', 7800000, 89);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Place', '91', 2500000, 34);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Place', '18', 200000, 91);
-insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Lane', '43', 8500000, 38);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Center', '49', 6200000, 63);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Road', '82', 9200000, 78);
 insert into CTSP (MaNCC, MaSP, GiaMua, NgayCapNhat) values ('Place', '55', 5100000, 25);
@@ -418,28 +415,18 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cir
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '46', 85600, 0, 59);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '57', 1500, 0, 75);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Crossing', '28', 52500, 0, 21);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '26', 42200, 0, 31);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Crossing', '72', 49200, 0, 7);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '98', 11300, 0, 3);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '3', 13500, 0, 96);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '37', 59600, 0, 37);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '66', 96000, 0, 11);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '54', 43100, 27600000, 82);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '65', 18100, 53800000, 45);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '49', 51900, 55500000, 56);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '72', 88600, 0, 2);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '65', 93300, 0, 25);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '77', 9700, 0, 39);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '49', 50800, 0, 24);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '41', 28100, 0, 83);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '13', 34300, 0, 67);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '65', 11300, 0, 55);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '43', 68200, 0, 37);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '65', 57900, 0, 19);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Street', '24', 97800, 0, 47);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '76', 62400, 0, 52);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '40', 45700, 97300000, 80);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '69', 11500, 1000000, 43);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '60', 14000, 0, 61);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '48', 60700, 0, 88);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '98', 93900, 0, 54);
@@ -480,20 +467,13 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('All
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '1', 31900, 0, 98);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '64', 11400, 97000000, 46);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Crossing', '24', 30500, 0, 28);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Circle', '46', 80400, 0, 69);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '69', 22800, 93900000, 47);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '42', 62900, 0, 76);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '57', 85700, 0, 1);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '74', 98000, 0, 4);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '85', 98400, 0, 73);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '87', 23900, 0, 20);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Street', '38', 98300, 0, 82);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '76', 95000, 0, 34);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '37', 73400, 0, 30);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '48', 33500, 8800000, 35);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '20', 66200, 0, 76);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '62', 46700, 0, 27);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '67', 67200, 20200000, 93);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '30', 2600, 86400000, 10);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '46', 85600, 0, 91);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '2', 44100, 0, 100);
@@ -517,9 +497,7 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Jun
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '46', 17000, 0, 77);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '2', 32800, 46600000, 31);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '54', 55900, 0, 96);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Circle', '30', 9400, 0, 81);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '14', 95900, 97400000, 64);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '90', 61900, 0, 95);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '3', 11400, 0, 66);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '35', 67000, 0, 92);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '2', 83000, 0, 26);
@@ -531,7 +509,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Dri
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '64', 98100, 0, 36);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '64', 73100, 0, 25);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '35', 64400, 0, 53);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '75', 48100, 0, 56);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '96', 58300, 0, 4);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '81', 51500, 0, 45);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '24', 3100, 0, 48);
@@ -543,7 +520,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cou
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '31', 5900, 0, 46);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '29', 84800, 0, 83);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '2', 63100, 0, 38);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '62', 52500, 0, 17);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '14', 33600, 0, 94);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '1', 86900, 0, 54);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '8', 37200, 0, 83);
@@ -555,7 +531,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cen
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Terrace', '67', 1500, 0, 23);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '6', 85500, 0, 15);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '98', 88400, 0, 98);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '8', 75900, 0, 5);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '29', 86400, 5400000, 38);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '76', 7400, 0, 39);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '96', 30400, 50000000, 5);
@@ -567,7 +542,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lan
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '69', 2500, 0, 99);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '64', 69100, 0, 55);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '4', 84000, 79000000, 13);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '46', 57600, 0, 37);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '51', 81600, 0, 3);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '96', 62300, 0, 22);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '31', 91500, 0, 50);
@@ -575,27 +549,21 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cen
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '37', 92400, 0, 25);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '72', 67500, 0, 44);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '7', 92000, 0, 99);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '73', 35200, 0, 77);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '70', 41800, 0, 70);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '63', 60000, 0, 48);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '10', 61500, 0, 48);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '49', 82000, 90400000, 56);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Street', '38', 14800, 0, 100);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '71', 32800, 0, 72);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '96', 48500, 0, 76);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Street', '28', 7800, 0, 9);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '11', 86300, 9600000, 43);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '10', 69500, 0, 1);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '41', 22600, 0, 90);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '71', 900, 83300000, 90);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '62', 51200, 0, 58);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '40', 64600, 0, 29);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '94', 55400, 0, 76);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '40', 36100, 19400000, 47);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '46', 85400, 0, 13);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '74', 1000, 0, 58);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '11', 2100, 63000000, 8);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '75', 1800, 0, 31);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '40', 56700, 0, 46);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '69', 5300, 62600000, 80);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '93', 14300, 0, 94);
@@ -704,14 +672,10 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Roa
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '32', 35400, 0, 67);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '72', 88100, 17900000, 59);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '87', 56900, 0, 34);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '2', 77300, 0, 14);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '96', 31900, 0, 94);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '48', 67500, 0, 45);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '93', 98500, 0, 62);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '86', 47100, 0, 95);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '60', 98100, 0, 56);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '7', 87000, 0, 91);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '41', 21100, 0, 4);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '51', 41500, 0, 98);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '100', 91100, 0, 69);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '49', 57700, 80400000, 86);
@@ -724,7 +688,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Poi
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '6', 14400, 0, 30);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '8', 34300, 56300000, 30);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '73', 57300, 0, 70);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '57', 40700, 54800000, 76);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '63', 43100, 0, 32);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '76', 67300, 0, 68);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '75', 13800, 0, 63);
@@ -752,7 +715,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cen
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '22', 34200, 0, 37);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '82', 84100, 0, 22);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Street', '23', 62400, 0, 63);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '41', 98100, 0, 37);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '74', 90100, 0, 99);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Terrace', '93', 85800, 45600000, 56);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Crossing', '24', 27700, 12200000, 47);
@@ -774,7 +736,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Dri
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '92', 93600, 0, 88);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '24', 8700, 0, 43);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '62', 92300, 0, 2);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '37', 72300, 0, 51);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '64', 23200, 58700000, 34);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '2', 14600, 0, 95);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '73', 69100, 73600000, 16);
@@ -798,7 +759,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cro
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '39', 72300, 0, 54);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '91', 82700, 0, 27);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '63', 84300, 0, 63);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '65', 84600, 0, 67);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '7', 62500, 0, 74);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '64', 7700, 79900000, 23);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Trail', '9', 10400, 0, 6);
@@ -811,12 +771,10 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lan
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '11', 47600, 0, 58);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '3', 65200, 0, 60);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '98', 42000, 0, 33);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pass', '75', 14300, 0, 54);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '76', 51300, 0, 57);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '26', 9600, 0, 79);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '96', 55700, 0, 58);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '46', 92500, 0, 94);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '11', 42800, 0, 26);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Plaza', '72', 50700, 0, 53);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '8', 31300, 45500000, 61);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '63', 9200, 0, 48);
@@ -836,7 +794,7 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Dri
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '55', 11700, 0, 66);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '32', 18500, 0, 27);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '51', 30900, 0, 68);
-
+go
 insert into Role values ('admin', NULL);
 insert into Role values ('quanly', NULL);
 insert into Role values ('nhanvien', NULL);
@@ -1919,7 +1877,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cro
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '21', 6100, 80600000, 90);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '63', 31300, 0, 28);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '37', 23200, 0, 4);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '7', 28100, 0, 32);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '70', 94400, 0, 54);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '43', 67000, 0, 89);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '71', 39800, 0, 69);
@@ -2089,7 +2046,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Roa
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '7', 72600, 48200000, 50);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Avenue', '10', 35700, 0, 55);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '46', 73900, 0, 53);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '43', 14100, 0, 23);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '69', 2500, 0, 99);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '64', 69100, 0, 55);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '4', 84000, 79000000, 13);
@@ -2145,7 +2101,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Poi
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Circle', '75', 51100, 0, 29);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Crossing', '83', 40700, 0, 4);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '89', 29600, 0, 67);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '43', 51300, 84000000, 69);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '20', 51800, 0, 87);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '87', 34600, 0, 24);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '51', 400, 0, 47);
@@ -2165,7 +2120,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hil
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '43', 48200, 68600000, 68);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '3', 95900, 0, 12);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Circle', '75', 76700, 0, 78);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '43', 59100, 0, 82);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '55', 36500, 0, 11);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '32', 35400, 0, 65);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '70', 69200, 75900000, 21);
@@ -2174,7 +2128,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Cen
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '41', 98700, 0, 31);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '32', 52500, 0, 67);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Terrace', '55', 78400, 0, 65);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '7', 93100, 0, 77);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '60', 87300, 0, 39);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '66', 92100, 17500000, 23);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '46', 17000, 0, 73);
@@ -2182,7 +2135,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Poi
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '20', 85300, 0, 100);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '11', 95000, 0, 53);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '68', 72600, 0, 96);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '39', 94300, 0, 75);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '67', 62300, 0, 47);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Lane', '46', 56200, 39000000, 24);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Court', '41', 7200, 36400000, 27);
@@ -2257,7 +2209,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Pas
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '54', 42900, 0, 47);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '93', 15200, 0, 56);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '60', 29900, 74700000, 48);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Junction', '54', 3200, 0, 96);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '96', 81600, 41100000, 96);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Alley', '63', 2000, 0, 16);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '7', 37000, 0, 86);
@@ -2321,7 +2272,6 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Dri
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Point', '71', 18900, 0, 9);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Park', '67', 14500, 0, 79);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Crossing', '67', 17200, 86500000, 37);
-insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Hill', '39', 72300, 0, 54);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Place', '91', 82700, 0, 27);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '63', 84300, 0, 63);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Drive', '65', 84600, 0, 67);
@@ -2362,3 +2312,7 @@ insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Dri
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Center', '55', 11700, 0, 66);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Road', '32', 18500, 0, 27);
 insert into CTYCBaoGia (MaNCC, MaSP, SLSeMua, GiaDaBao, MaYCBaoGia) values ('Way', '51', 30900, 0, 68);
+go
+set ANSI_WARNINGS on
+go
+use master

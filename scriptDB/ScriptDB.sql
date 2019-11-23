@@ -554,3 +554,4 @@ Grant insert on [Account] to [Admin]
 go
 Grant references on [Account] to [Admin]
 go
+use master

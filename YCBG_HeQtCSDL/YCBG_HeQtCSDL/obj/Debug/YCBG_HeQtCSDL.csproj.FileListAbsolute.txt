@@ -52,3 +52,5 @@ D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\YCBG_HeQtCSDL.csproj.G
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\YCBG_HeQtCSDL.csproj.CopyComplete
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\YCBG_HeQtCSDL.exe
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\YCBG_HeQtCSDL.pdb
+D:\project\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\CTBaoGia.g.cs
+D:\project\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\CTBaoGia.baml

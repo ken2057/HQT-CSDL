@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -26,46 +27,46 @@ namespace YCBG_HeQtCSDL
         {
             InitializeComponent();
             this.connectionString = connectionString;
-            get_CTYCBH();
+            //get_CTYCBH();
         }
-        private void get_CTYCBH()
-        {
-            ChiTietBaoGiaVM chiTietBaoGiaVM = new ChiTietBaoGiaVM();
-            List<ChiTietBaoGiaVM> chiTietBaoGiaVMs = new List<ChiTietBaoGiaVM>();
-            SqlDataReader rdr = null;
+        //private void get_CTYCBH()
+        //{
+        //    ChiTietBaoGiaVM yeuCauBaoGiaVM = new ChiTietBaoGiaVM();
+        //    List<ChiTietBaoGiaVM> yeuCauBaoGiaVMs = new List<ChiTietBaoGiaVM>();
+        //    SqlDataReader rdr = null;
 
-            using (var conn = new SqlConnection(this.connectionString))
-            using (var command = new SqlCommand("sp_get_ycbg", conn)
-            {
-                CommandType = CommandType.StoredProcedure
-            })
-            {
-                try
-                {
-                    conn.Open();
-                    rdr = command.ExecuteReader();
+        //    using (var conn = new SqlConnection(this.connectionString))
+        //    using (var command = new SqlCommand("sp_get_ycbg", conn)
+        //    {
+        //        CommandType = CommandType.StoredProcedure
+        //    })
+        //    {
+        //        try
+        //        {
+        //            conn.Open();
+        //            rdr = command.ExecuteReader();
 
-                    while (rdr.Read())
-                    {
-                        yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
-                        yeuCauBaoGiaVM.MaYCBG = rdr["MaYCBaoGia"].ToString();
-                        yeuCauBaoGiaVM.NgayYCBG = rdr["NgayYCBaoGia"].ToString();
-                        yeuCauBaoGiaVM.TinhTrang = rdr["TinhTrang"].ToString();
-                        yeuCauBaoGiaVM.MaNV = rdr["MaNV"].ToString();
-                        yeuCauBaoGiaVMs.Add(yeuCauBaoGiaVM);
-                    }
-                    dtgYCBG.ItemsSource = yeuCauBaoGiaVMs;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-                finally
-                {
-                    conn.Close();
-                }
+        //            while (rdr.Read())
+        //            {
+        //                yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
+        //                yeuCauBaoGiaVM.MaYCBG = rdr["MaYCBaoGia"].ToString();
+        //                yeuCauBaoGiaVM.NgayYCBG = rdr["NgayYCBaoGia"].ToString();
+        //                yeuCauBaoGiaVM.TinhTrang = rdr["TinhTrang"].ToString();
+        //                yeuCauBaoGiaVM.MaNV = rdr["MaNV"].ToString();
+        //                yeuCauBaoGiaVMs.Add(yeuCauBaoGiaVM);
+        //            }
+        //            dtgYCBG.ItemsSource = yeuCauBaoGiaVMs;
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            MessageBox.Show(e.Message);
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
 
-            }
-        }
+        //    }
+        //}
     }
 }

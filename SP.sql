@@ -1,5 +1,6 @@
 ﻿use qlmuahang
 go
+-- Lấy tất cả YCBG
 create proc sp_get_ycbg
 	@maYCBG varchar(10)
 as
@@ -10,12 +11,14 @@ begin
 	select * from YeuCauBaoGia
 end
 go
+-- Lấy tất cả Mã NCC
 create proc sp_get_maNCC
 as
 begin
 	select MaNCC from NCC
 end
 go
+-- Lấy tất cả Mã NCC có sản phẩm cung cấp
 create proc sp_get_all_maNCC
 	@masp varchar(20)
 as
@@ -27,6 +30,7 @@ begin
 		group by MaNCC
 end
 go
+-- Lấy tất cả Mã SP được cung cấp bởi NCC
 create proc sp_get_all_masp
 	@mancc varchar(20)
 as
@@ -45,6 +49,7 @@ create type CTYCBGType as table (
 	SLSeMua int
 )
 go
+-- Thêm từng dòng trong CTYCBG gửi từ WPF
 create proc sp_add_CTYCBG
 	@maYCBG varchar(10),
 	@ctycbg CTYCBGType readonly
@@ -71,6 +76,7 @@ begin
 	deallocate cr_CTYCBG
 end
 go
+-- Tạo YCBG và CTYCBG
 create proc sp_add_YCBG
 	@ctYCBG CTYCBGType readonly
 as
@@ -107,9 +113,11 @@ begin
 	end
 end
 go
+-- Lấy tát cả CTYCBG của YCBG
 create proc sp_get_CTYCBG
 	@maYCBG varchar(10)
 as
 begin
 	select * from CTYCBaoGia where MaYCBaoGia = @maYCBG
 end
+

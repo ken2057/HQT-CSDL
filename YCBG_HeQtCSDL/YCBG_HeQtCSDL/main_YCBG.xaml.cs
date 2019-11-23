@@ -22,6 +22,8 @@ namespace YCBG_HeQtCSDL
     /// </summary>
     public partial class main_YCBG : Window
     {
+        YeuCauBaoGiaVM yeuCauBaoGiaVM;
+        List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs;
         string connectionString;
         public main_YCBG(string connectionString)
         {
@@ -30,7 +32,6 @@ namespace YCBG_HeQtCSDL
             InitializeComponent();
 
             get_YCBH();
-
             //MessageBoxResult t = MessageBox.Show(connectionString, "t");
             
         }
@@ -47,12 +48,19 @@ namespace YCBG_HeQtCSDL
             ThemSanPhamYCBG themSanPhamYCBG = new ThemSanPhamYCBG(this.connectionString);
             themSanPhamYCBG.Owner = this;
             themSanPhamYCBG.ShowDialog();
+
+            //refresh when windows closed
+            if (themSanPhamYCBG.isClosed)
+            {
+                get_YCBH();
+                dtgYCBG.Items.Refresh();
+            }
         }
 
-        private void get_YCBH()
+        private void get_YCBH(string maYCBG = "")
         {
-            YeuCauBaoGiaVM yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
-            List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs = new List<YeuCauBaoGiaVM>();
+            
+            yeuCauBaoGiaVMs = new List<YeuCauBaoGiaVM>();
             SqlDataReader rdr = null;
 
             using (var conn = new SqlConnection(this.connectionString))
@@ -64,6 +72,7 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
+                    command.Parameters.AddWithValue("@maYCBG", maYCBG);
                     rdr = command.ExecuteReader();
 
                     while (rdr.Read())
@@ -86,6 +95,15 @@ namespace YCBG_HeQtCSDL
                     conn.Close();
                 }
 
+            }
+        }
+
+        private void txtMaSP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                get_YCBH(txtMaSP.Text);
+                dtgYCBG.Items.Refresh();
             }
         }
     }

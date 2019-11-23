@@ -9,38 +9,73 @@
         Title="ThemSanPhamYCBG" Height="450" Width="800">
     <Grid >
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="6*"/>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160*"/>
             <ColumnDefinition Width="160*"/>
-            <ColumnDefinition Width="577*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="160*"/>
             <ColumnDefinition Width="160*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="ahihi" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="Red" BorderThickness="1" Margin="5"></TextBox>
-        <Button Grid.Row="1" Grid.Column="3" Name="btn_addYCBG"
-                Click="btn_addYCBG_Click"
-                    BorderBrush="Red" BorderThickness="1" Margin="5">Thêm</Button>
+        <!--0-->
+        <TextBlock Text="Sản phẩm" Grid.Column="0" Grid.Row="0" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <ComboBox Name="cboMaSP" Grid.Column="0" Grid.Row="1" Margin="10" 
+                  SelectionChanged="cboMaSP_SelectionChanged"
+                  SelectedIndex="{Binding indexCboSP}"/>
+
+        <TextBlock Text="Nhà cung cấp" Grid.Column="1" Grid.Row="0" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <ComboBox Name="cboMaNCC" Grid.Column="1" Grid.Row="1" Margin="10" 
+                  SelectionChanged="cboMaNCC_SelectionChanged"
+                  SelectedIndex="{Binding indexCboNCC}"/>
+
+        <TextBlock Text="Số lượng" Grid.Column="2" Grid.Row="0" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBox Name="txtSoLuong" Grid.Column="2" Grid.Row="1"
+                 MaxLength="5"
+                 PreviewTextInput="txtSoLuong_PreviewTextInput"
+                    Margin="10" Background="Azure" Text="0"
+                 BorderBrush="Red" BorderThickness="1"
+                 />
+        <!--<TextBox Name="txtGhiChu" Grid.Column="3" Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   BorderBrush="Red" BorderThickness="1"
+                    Margin="10" Background="Azure"/>-->
+
+        <Button Grid.Row="1" Grid.Column="6" Name="btn_addCTYCBH"
+                Click="btn_addCTYCBH_Click"
+                    BorderBrush="Red" BorderThickness="1" Margin="5">Thêm CTYCBG</Button>
+        <!--1-->
+        <Button Grid.Row="3" Grid.Column="1" Name="btn_XoaCTYCBH"
+                Click="btn_XoaCTYCBH_Click"
+                BorderBrush="Red" BorderThickness="1" Margin="5">Xoá CTYCBG</Button>
+        
+        <Button Grid.Row="3" Grid.Column="5" Name="btn_addYCBG"
+                Click="btn_addYCBG_Click" 
+                BorderBrush="Red" BorderThickness="1" Margin="5">Tạo</Button>
 
         <DataGrid Name="dtgThemSanPhamYCBG"
-                        Grid.Row="0" Grid.ColumnSpan="4" 
+                        Grid.Row="2" Grid.ColumnSpan="6" 
                               ColumnWidth="*"
                               VerticalAlignment="Stretch"
                               HorizontalAlignment="Stretch"
                               EnableColumnVirtualization="False"
                               EnableRowVirtualization="False"
                               AutoGenerateColumns="False"
-                              CanUserAddRows="True"
-                              Margin="5"
+                              CanUserAddRows="False" Margin="5"
                               SelectionMode="Single" Grid.RowSpan="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" IsReadOnly="True" Width="30" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={local1:RowToIndexConverter}}"/>
-                <DataGridComboBoxColumn Header="Tên sản phẩm" IsReadOnly="False" />
-                <DataGridComboBoxColumn Header="Nhà cung cấp" IsReadOnly="False" />
-                <DataGridTextColumn Header="Số lượng" IsReadOnly="False" Binding="{Binding SoLuong}"/>
-                <DataGridTextColumn Header="Ghi chú" IsReadOnly="False" Binding="{Binding GhiChu}"/>
+                <DataGridTextColumn Header="Tên sản phẩm" IsReadOnly="True" Binding="{Binding TenSanPham}"/>
+                <DataGridTextColumn Header="Nhà cung cấp" IsReadOnly="True" Binding="{Binding NhaCungCap}"/>
+                <DataGridTextColumn Header="Số lượng" IsReadOnly="True" Binding="{Binding SoLuong}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

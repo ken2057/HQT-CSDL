@@ -36,12 +36,17 @@
                               CanUserAddRows="False"
                       Margin="5"
                               SelectionMode="Single" Grid.RowSpan="1">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" IsReadOnly="True" Width="30" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={local1:RowToIndexConverter}}"/>
                     <DataGridTextColumn Header="Mã yêu cầu báo giá" IsReadOnly="True" Binding="{Binding MaYCBG}"/>
                     <DataGridTextColumn Header="Ngày" IsReadOnly="True" Binding="{Binding NgayYCBG}"/>
                     <DataGridTextColumn Header="Tình trạng" IsReadOnly="True" Binding="{Binding TinhTrang}"/>
-                    <DataGridTextColumn Header="Nhân viên" IsReadOnly="False" Binding="{Binding MaNV}"/>
+                    <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding MaNV}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

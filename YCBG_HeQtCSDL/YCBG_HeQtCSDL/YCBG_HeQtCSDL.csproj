@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CTBaoGia.xaml.cs">
+      <DependentUpon>CTBaoGia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EF\Account.cs" />
     <Compile Include="EF\CTKeHoachMua.cs" />
     <Compile Include="EF\CTMua.cs" />
@@ -95,6 +98,10 @@
     <Compile Include="ViewModel\ChiTietBaoGiaVM.cs" />
     <Compile Include="ViewModel\ThemSanPhamYCBGVM.cs" />
     <Compile Include="ViewModel\YeuCauBaoGiaVM.cs" />
+    <Page Include="CTBaoGia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

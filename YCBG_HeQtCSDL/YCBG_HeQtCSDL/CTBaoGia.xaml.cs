@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -18,41 +17,21 @@ using YCBG_HeQtCSDL.ViewModel;
 namespace YCBG_HeQtCSDL
 {
     /// <summary>
-    /// Interaction logic for main_YCBG.xaml
+    /// Interaction logic for CTBaoGia.xaml
     /// </summary>
-    public partial class main_YCBG : Window
+    public partial class CTBaoGia : Window
     {
         string connectionString;
-        public main_YCBG(string connectionString)
+        public CTBaoGia()
         {
-            this.connectionString = connectionString;
-
             InitializeComponent();
-
-            get_YCBH();
-
-            //MessageBoxResult t = MessageBox.Show(connectionString, "t");
-            
+            this.connectionString = connectionString;
+            get_CTYCBH();
         }
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void get_CTYCBH()
         {
-            DataGridRow row = sender as DataGridRow;
-            CTBaoGia cTBaoGia = new CTBaoGia();
-            cTBaoGia.ShowDialog();
-            // Some operations with this row
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ThemSanPhamYCBG themSanPhamYCBG = new ThemSanPhamYCBG(this.connectionString);
-            themSanPhamYCBG.Owner = this;
-            themSanPhamYCBG.ShowDialog();
-        }
-
-        private void get_YCBH()
-        {
-            YeuCauBaoGiaVM yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
-            List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs = new List<YeuCauBaoGiaVM>();
+            ChiTietBaoGiaVM chiTietBaoGiaVM = new ChiTietBaoGiaVM();
+            List<ChiTietBaoGiaVM> chiTietBaoGiaVMs = new List<ChiTietBaoGiaVM>();
             SqlDataReader rdr = null;
 
             using (var conn = new SqlConnection(this.connectionString))

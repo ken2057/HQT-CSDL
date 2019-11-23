@@ -14,7 +14,7 @@ namespace YCBG_HeQtCSDL.ViewModel
         [DisplayName("Nhà cung cấp")]
         public string NhaCungCap { get; set; }
         [DisplayName("Số lượng")]
-        public string SoLuong { get; set; }
+        public int SoLuong { get; set; }
         [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
     }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,24 +24,44 @@ namespace YCBG_HeQtCSDL
     public partial class ThemSanPhamYCBG : Window
     {
         string connectionString;
+        List<string> allMaNCC;
+        List<string> allMaSP;
+        List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs;
+
         public ThemSanPhamYCBG(string connectionString)
         {
             this.connectionString = connectionString;
             InitializeComponent();
 
+            themSanPhamYCBGVMs = new List<ThemSanPhamYCBGVM>();
+            dtgThemSanPhamYCBG.ItemsSource = themSanPhamYCBGVMs;
 
-            //ThemSanPhamYCBGVM themSanPhamYCBGVM = new ThemSanPhamYCBGVM();
-            //themSanPhamYCBGVM.TenSanPham = "";
-            //themSanPhamYCBGVM.NhaCungCap = "";
-            //themSanPhamYCBGVM.SoLuong =null;
-            //themSanPhamYCBGVM.GhiChu = null;
-            //List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs = new List<ThemSanPhamYCBGVM>();
-            //themSanPhamYCBGVMs.Add(themSanPhamYCBGVM);
-            //dtgThemSanPhamYCBG.ItemsSource = themSanPhamYCBGVMs;
+            resetValue();
+        }
 
-            //List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs = new List<ThemSanPhamYCBGVM>();
-            //dtgThemSanPhamYCBG.ItemsSource = themSanPhamYCBGVMs;
-            
+        private void resetValue(string mancc = "", string masp = "")
+        {
+            getAllMaNCC(masp);
+            getAllMaSP(mancc);
+
+            cboMaSP.SelectedIndex = -1;
+            cboMaNCC.SelectedIndex = -1;
+
+            cboMaNCC.ItemsSource = allMaNCC;
+            cboMaSP.ItemsSource = allMaSP;
+            //txtGhiChu.Text = "";
+            txtSoLuong.Text = "0";
+            dtgThemSanPhamYCBG.Items.Refresh();
+        }
+
+         private ThemSanPhamYCBGVM create_New_CTYCBG(string sp = "", string ncc = "", int sl = 0, string note = "")
+        {
+            ThemSanPhamYCBGVM themSanPhamYCBGVM = new ThemSanPhamYCBGVM();
+            themSanPhamYCBGVM.TenSanPham = sp;
+            themSanPhamYCBGVM.NhaCungCap = ncc;
+            themSanPhamYCBGVM.SoLuong = sl;
+            themSanPhamYCBGVM.GhiChu = note;
+            return themSanPhamYCBGVM;
         }
 
         private class CT {
@@ -59,12 +80,73 @@ namespace YCBG_HeQtCSDL
 
         }
 
+        private void getAllMaNCC(string masp = "")
+        {
+            using (var conn = new SqlConnection(this.connectionString))
+            using (var command = new SqlCommand("sp_get_all_maNCC", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            })
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@masp", masp);
+                    var rdr = command.ExecuteReader();
+
+                    allMaNCC = new List<string>();
+                    while (rdr.Read())
+                        allMaNCC.Add(rdr["MaNCC"].ToString());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Error");
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+        }
+
+
+        private void getAllMaSP(string mancc = "")
+        {
+            using (var conn = new SqlConnection(this.connectionString))
+            using (var command = new SqlCommand("sp_get_all_masp", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            })
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@mancc", mancc);
+                    var rdr = command.ExecuteReader();
+
+                    allMaSP = new List<string>();
+                    while (rdr.Read())
+                        allMaSP.Add(rdr["masp"].ToString());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Error");
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+            }
+        }
+
         private void createNewYCBG()
         {
             List<ChiTietBaoGiaVM> yeuCauBaoGiaVMs = new List<ChiTietBaoGiaVM>();
 
             using (var conn = new SqlConnection(this.connectionString))
-            using (var command = new SqlCommand("sp_t1", conn)
+            using (var command = new SqlCommand("sp_add_YCBG", conn)
             {
                 CommandType = CommandType.StoredProcedure
             })
@@ -73,29 +155,23 @@ namespace YCBG_HeQtCSDL
                 {
                     
                     conn.Open();
-                    // "," split fields same row
-                    // "#" split multi row
-                    List<CT> temp = new List<CT>();
-                    temp.Add(new CT("1", "1", "1", 1));
-                    temp.Add(new CT("1", "1", "1", 2));
-                    temp.Add(new CT("1", "1", "1", 3));
-                    temp.Add(new CT("1", "1", "1", 4));
-                    temp.Add(new CT("1", "1", "1", 5));
 
                     DataTable table = new DataTable();
                     var colString = System.Type.GetType("System.String");
                     var colInt32 = System.Type.GetType("System.Int32");
                     table.Columns.Add("MaNCC", colString);
                     table.Columns.Add("MaSP", colString);
-                    table.Columns.Add("MaYCBaoGia", colString);
                     table.Columns.Add("SLSeMua", colInt32);
 
-                    temp.ForEach(t => {
-                        table.Rows.Add(t.MaNCC, t.MaSP, t.MaYCBaoGia, t.SLSeMua);
+                    themSanPhamYCBGVMs.ForEach(t => {
+                        table.Rows.Add(t.NhaCungCap, t.TenSanPham, t.SoLuong);
                     });
 
-                    command.Parameters.AddWithValue("@dsCTYCBG", table);
+                    command.Parameters.AddWithValue("@ctYCBG", table);
                     command.ExecuteNonQuery();
+
+                    MessageBox.Show("Done");
+                    this.Close();
                     //var rdr = command.ExecuteReader();
 
                     //while (rdr.Read())
@@ -103,7 +179,7 @@ namespace YCBG_HeQtCSDL
                     //    ChiTietBaoGiaVM ct = new ChiTietBaoGiaVM();
                     //    ct.MaSP = rdr["MaSP"].ToString();
                     //    ct.TenNCC = rdr["MaNCC"].ToString();
-                    //    ct.TenMatHang = rdr["MatHang"].ToString();
+                    //    //ct.TenMatHang = rdr["MatHang"].ToString();
                     //    ct.SoLuong = int.Parse(rdr["SLSeMua"].ToString());
 
                     //    yeuCauBaoGiaVMs.Add(ct);
@@ -125,6 +201,60 @@ namespace YCBG_HeQtCSDL
         private void btn_addYCBG_Click(object sender, RoutedEventArgs e)
         {
             createNewYCBG();
+        }
+
+        
+        private void btn_addCTYCBH_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cboMaSP.SelectedItem != null && cboMaNCC.SelectedItem != null)
+                {
+                    themSanPhamYCBGVMs.Add(create_New_CTYCBG(
+                            cboMaSP.SelectedValue.ToString(),
+                            cboMaNCC.SelectedValue.ToString(),
+                            int.Parse(txtSoLuong.Text),
+                            ""
+                        ));
+                    resetValue();
+                }
+                else
+                {
+                    MessageBox.Show("Các trường không hợp lệ", "Lỗi");
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Số lượng phải lớn hơn hoặc bằng 0", "Lỗi");
+                txtSoLuong.Text = "0";
+                txtSoLuong.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void cboMaSP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            getAllMaNCC(cboMaSP.SelectedValue == null ? "" : cboMaSP.SelectedValue.ToString());
+            cboMaNCC.ItemsSource = allMaNCC;
+        }
+
+        private void cboMaNCC_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            getAllMaSP(cboMaNCC.SelectedValue == null ? "" : cboMaNCC.SelectedValue.ToString());
+            cboMaSP.ItemsSource = allMaSP;
+        }
+
+        private void btn_XoaCTYCBH_Click(object sender, RoutedEventArgs e)
+        {
+            var index = dtgThemSanPhamYCBG.SelectedIndex;
+            if(index != -1)
+            {
+                themSanPhamYCBGVMs.RemoveAt(index);
+                dtgThemSanPhamYCBG.Items.Refresh();
+            }
         }
     }
 }

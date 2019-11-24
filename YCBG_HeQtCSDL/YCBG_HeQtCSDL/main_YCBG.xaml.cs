@@ -37,9 +37,8 @@ namespace YCBG_HeQtCSDL
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
-            CTBaoGia cTBaoGia = new CTBaoGia(connectionString);
             yeuCauBaoGiaVM = (YeuCauBaoGiaVM)dtgYCBG.SelectedItem;
+            CTBaoGia cTBaoGia = new CTBaoGia(connectionString);
             //chiTietBaoGiaVM = new ChiTietBaoGiaVM(((ChiTietBaoGiaVM)chiTietBaoGiaVMTemp));
             //MessageBox.Show(yeuCauBaoGiaVM.MaYCBG);
             cTBaoGia.ShowDialog();

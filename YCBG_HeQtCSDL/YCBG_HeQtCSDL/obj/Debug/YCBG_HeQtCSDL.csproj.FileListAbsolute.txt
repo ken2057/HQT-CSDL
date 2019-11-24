@@ -33,7 +33,6 @@ D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\bin\Debug\EntityFramework.dll
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\bin\Debug\EntityFramework.SqlServer.dll
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\bin\Debug\EntityFramework.xml
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\bin\Debug\EntityFramework.SqlServer.xml
-D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\YCBG_HeQtCSDL.csprojAssemblyReference.cache
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\login.g.cs
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\MainWindow.g.cs
 D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\main_YCBG.g.cs

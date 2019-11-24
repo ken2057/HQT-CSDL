@@ -28,7 +28,7 @@ namespace YCBG_HeQtCSDL
         public CTBaoGia(string connectionString)
         {
             InitializeComponent();
-            this.connectionString = connectionString; // :)
+            this.connectionString = connectionString;
 
             get_CTYCBH();
         }
@@ -38,7 +38,7 @@ namespace YCBG_HeQtCSDL
             SqlDataReader rdr = null;
             SqlDataReader rdr_getTenSP = null;
             using (var conn = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("sp_get_ctbg", conn)
+            using (var command = new SqlCommand("sp_get_CTYCBG", conn)
             {
                 CommandType = CommandType.StoredProcedure
             })
@@ -46,13 +46,12 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@maYCBG", main_YCBG.yeuCauBaoGiaVM.MaYCBG); // :)
+                    command.Parameters.AddWithValue("@maYCBG", main_YCBG.yeuCauBaoGiaVM.MaYCBG);
 
                     rdr = command.ExecuteReader();
 
                     while (rdr.Read())
                     {
-
                         chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
                         chiTietYeuCauBaoGiaVM.NgayYCBG = main_YCBG.yeuCauBaoGiaVM.NgayYCBG;
                         chiTietYeuCauBaoGiaVM.MaNhanVien = main_YCBG.yeuCauBaoGiaVM.MaNV;
@@ -60,24 +59,25 @@ namespace YCBG_HeQtCSDL
                         chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
                         chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();
                         chiTietYeuCauBaoGiaVM.Gia = rdr["GiaDaBao"].ToString();
+                        chiTietYeuCauBaoGiaVM.TenSP = rdr["TenSanPham"].ToString();
                     }
 
                     //Lấy tên sản phẩm thông qua mã sp
-                    using (var con2 = new SqlConnection(connectionString))
-                    using (var getTenSP = new SqlCommand("sp_get_tenSP", con2)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    })
-                    {
-                        con2.Open();
-                        getTenSP.Parameters.AddWithValue("@maSP", chiTietYeuCauBaoGiaVM.MaSP);
-                        rdr_getTenSP = getTenSP.ExecuteReader();
-                        while (rdr_getTenSP.Read())
-                        {
-                            chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
-                        }
-                        con2.Close();
-                    }
+                    //using (var con2 = new SqlConnection(connectionString))
+                    //using (var getTenSP = new SqlCommand("sp_get_tenSP", con2)
+                    //{
+                    //    CommandType = CommandType.StoredProcedure
+                    //})
+                    //{
+                    //    con2.Open();
+                    //    getTenSP.Parameters.AddWithValue("@maSP", chiTietYeuCauBaoGiaVM.MaSP);
+                    //    rdr_getTenSP = getTenSP.ExecuteReader();
+                    //    while (rdr_getTenSP.Read())
+                    //    {
+                    //        chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
+                    //    }
+                    //    con2.Close();
+                    //}
 
                     lbNgay.Content = chiTietYeuCauBaoGiaVM.NgayYCBG;
                     lbNguoiPhuTrach.Content = chiTietYeuCauBaoGiaVM.MaNhanVien;

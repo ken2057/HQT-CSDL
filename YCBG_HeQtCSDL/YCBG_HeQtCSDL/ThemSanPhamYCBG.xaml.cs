@@ -26,7 +26,7 @@ namespace YCBG_HeQtCSDL
     {
         string connectionString;
         List<string> allMaNCC;
-        List<string> allMaSP;
+        Dictionary<int, string> allMaSP;
         List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs;
         public bool isClosed;
 
@@ -42,48 +42,39 @@ namespace YCBG_HeQtCSDL
             resetValue();
         }
 
-        private void resetValue(string mancc = "", string masp = "")
+        private void resetValue(int? masp = null, string mancc = "")
         {
             getAllMaNCC(masp);
             getAllMaSP(mancc);
-
-            cboMaSP.SelectedIndex = -1;
+            // 
             cboMaNCC.SelectedIndex = -1;
-
             cboMaNCC.ItemsSource = allMaNCC;
+            // do không thể set Index = -1 khi cboMaSP đang reference tới Dictionary
+            // nên tạo 1 List rỗng để set Index = -1
+            cboMaSP.ItemsSource = new List<string>();
+            cboMaSP.SelectedIndex = -1;
+            //
             cboMaSP.ItemsSource = allMaSP;
+            cboMaSP.SelectedValuePath = "Key";
+            cboMaSP.DisplayMemberPath = "Value";
+
             //txtGhiChu.Text = "";
             txtSoLuong.Text = "0";
             dtgThemSanPhamYCBG.Items.Refresh();
         }
 
-         private ThemSanPhamYCBGVM create_New_CTYCBG(string sp = "", string ncc = "", int sl = 0, string note = "")
+         private ThemSanPhamYCBGVM create_New_CTYCBG(int sp = -1, string tenSP = "",string ncc = "", int sl = 0, string note = "")
         {
             ThemSanPhamYCBGVM themSanPhamYCBGVM = new ThemSanPhamYCBGVM();
-            themSanPhamYCBGVM.TenSanPham = sp;
+            themSanPhamYCBGVM.MaSP = sp;
+            themSanPhamYCBGVM.TenSanPham = tenSP;
             themSanPhamYCBGVM.NhaCungCap = ncc;
             themSanPhamYCBGVM.SoLuong = sl;
             themSanPhamYCBGVM.GhiChu = note;
             return themSanPhamYCBGVM;
         }
 
-        private class CT {
-            public string MaNCC;
-            public string MaSP;
-            public string MaYCBaoGia;
-            public int SLSeMua;
-
-            public CT(string ncc, string sp, string maYCBG, int sl)
-            {
-                this.MaNCC = ncc;
-                MaSP = sp;
-                MaYCBaoGia = maYCBG;
-                SLSeMua = sl;
-            }
-
-        }
-
-        private void getAllMaNCC(string masp = "")
+        private void getAllMaNCC(int? masp = null)
         {
             using (var conn = new SqlConnection(this.connectionString))
             using (var command = new SqlCommand("sp_get_all_maNCC", conn)
@@ -94,7 +85,12 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@masp", masp);
+                    // không thể dùng toán tử ? để truyền int và DBNull cùng 1 dòng
+                    if (masp == null)
+                        command.Parameters.AddWithValue("@masp", DBNull.Value);
+                    else
+                        command.Parameters.AddWithValue("@masp", masp);
+
                     var rdr = command.ExecuteReader();
 
                     allMaNCC = new List<string>();
@@ -128,9 +124,11 @@ namespace YCBG_HeQtCSDL
                     command.Parameters.AddWithValue("@mancc", mancc);
                     var rdr = command.ExecuteReader();
 
-                    allMaSP = new List<string>();
+                    allMaSP = new Dictionary<int, string>();
                     while (rdr.Read())
-                        allMaSP.Add(rdr["masp"].ToString());
+                    {
+                        allMaSP.Add(int.Parse(rdr["masp"].ToString()), rdr["TenSanPham"].ToString());
+                    }
                 }
                 catch (Exception e)
                 {
@@ -166,7 +164,7 @@ namespace YCBG_HeQtCSDL
                     table.Columns.Add("SLSeMua", colInt32);
 
                     themSanPhamYCBGVMs.ForEach(t => {
-                        table.Rows.Add(t.NhaCungCap, t.TenSanPham, t.SoLuong);
+                        table.Rows.Add(t.NhaCungCap, t.MaSP, t.SoLuong);
                     });
 
                     command.Parameters.AddWithValue("@ctYCBG", table);
@@ -211,11 +209,11 @@ namespace YCBG_HeQtCSDL
 
         // check duplicate in CTYCBG
         // if exists not add into the list
-        private bool checkExistCTYCBG(string maSP, string maNCC)
+        private bool checkExistCTYCBG(int maSP, string maNCC)
         {
             var flag = true;
             themSanPhamYCBGVMs.ForEach(ct => {
-                if (ct.TenSanPham == maSP && ct.NhaCungCap == maNCC)
+                if (ct.MaSP == maSP && ct.NhaCungCap == maNCC)
                     flag = false;
             });
             return flag;
@@ -233,16 +231,18 @@ namespace YCBG_HeQtCSDL
                 // both comboBox not selected any thing
                 if (cboMaSP.SelectedItem != null && cboMaNCC.SelectedItem != null)
                 {
-                    if (checkExistCTYCBG(cboMaSP.SelectedValue.ToString(), cboMaNCC.SelectedValue.ToString()))
+                    int key = int.Parse(cboMaSP.SelectedValue.ToString());
+                    if (checkExistCTYCBG(key, cboMaNCC.SelectedValue.ToString()))
                     {
                         themSanPhamYCBGVMs.Add(create_New_CTYCBG(
-                                cboMaSP.SelectedValue.ToString(),
+                                key,
+                                allMaSP[key],
                                 cboMaNCC.SelectedValue.ToString(),
                                 int.Parse(txtSoLuong.Text),
                                 ""
                             ));
                         resetValue();
-                    } 
+                    }
                     else // thông báo lỗi khi đã tồn tại CTBG SP của NCC này trong danh sách
                     {
                         MessageBox.Show("Đã tồn tại YCBG Sản phẩm của NCC này trong danh sách", "Lỗi");
@@ -254,10 +254,12 @@ namespace YCBG_HeQtCSDL
                 {
                     allMaNCC.ForEach(maNCC =>
                     {
-                        if (checkExistCTYCBG(cboMaSP.SelectedValue.ToString(), maNCC))
+                        int key = int.Parse(cboMaSP.SelectedValue.ToString());
+                        if (checkExistCTYCBG(key, maNCC))
                         {
                             themSanPhamYCBGVMs.Add(create_New_CTYCBG(
-                                cboMaSP.SelectedValue.ToString(),
+                                key,
+                                allMaSP[key],
                                 maNCC,
                                 int.Parse(txtSoLuong.Text),
                                 ""
@@ -271,12 +273,13 @@ namespace YCBG_HeQtCSDL
                 //=> thêm yêu cầu báo giá cho các sản phẩm của NCC đó
                 else if (cboMaNCC.SelectedItem != null)
                 {
-                    allMaSP.ForEach(maSP =>
+                    allMaSP.Keys.ToList().ForEach(SP =>
                     {
-                        if (checkExistCTYCBG(maSP, cboMaNCC.SelectedValue.ToString()))
+                        if (checkExistCTYCBG(SP, cboMaNCC.SelectedValue.ToString()))
                         {
                             themSanPhamYCBGVMs.Add(create_New_CTYCBG(
-                                maSP,
+                                SP,
+                                allMaSP[SP],
                                 cboMaNCC.SelectedValue.ToString(),
                                 int.Parse(txtSoLuong.Text),
                                 ""
@@ -298,13 +301,17 @@ namespace YCBG_HeQtCSDL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Lỗi");
             }
         }
 
         private void cboMaSP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            getAllMaNCC(cboMaSP.SelectedValue == null ? "" : cboMaSP.SelectedValue.ToString());
+            //getAllMaNCC(cboMaSP.SelectedValue == null ? "" : cboMaSP.SelectedValue.ToString());
+            if (cboMaSP.SelectedItem == null)
+                getAllMaNCC();
+            else
+                getAllMaNCC(int.Parse(cboMaSP.SelectedValue.ToString()));
             cboMaNCC.ItemsSource = allMaNCC;
         }
 

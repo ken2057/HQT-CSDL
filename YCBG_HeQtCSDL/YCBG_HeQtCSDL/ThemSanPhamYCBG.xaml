@@ -24,7 +24,7 @@
             <ColumnDefinition Width="160*"/>
         </Grid.ColumnDefinitions>
         <!--0-->
-        <TextBlock Text="Sản phẩm" Grid.Column="0" Grid.Row="0" FontWeight="Bold"
+        <TextBlock Text="Sản phẩm" Grid.Column="0" Grid.Row="0" FontWeight="Bold"  
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <ComboBox Name="cboMaSP" Grid.Column="0" Grid.Row="1" Margin="10" 
                   SelectionChanged="cboMaSP_SelectionChanged"

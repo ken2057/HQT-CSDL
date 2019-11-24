@@ -9,6 +9,8 @@ namespace YCBG_HeQtCSDL.ViewModel
 {
     class ThemSanPhamYCBGVM
     {
+        [DisplayName("Mã sản phẩm")]
+        public int MaSP { get; set; }
         [DisplayName("Tên Sản Phẩm")]
         public string TenSanPham { get; set; }
         [DisplayName("Nhà cung cấp")]

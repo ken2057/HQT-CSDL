@@ -11,41 +11,38 @@ begin
 	select * from YeuCauBaoGia
 end
 go
--- Lấy tất cả Mã NCC
-create proc sp_get_maNCC
-as
-begin
-	select MaNCC from NCC
-end
-go
 -- Lấy tất cả Mã NCC có sản phẩm cung cấp
 create proc sp_get_all_maNCC
-	@masp varchar(20)
+	@masp int
 as
 begin
-	if @masp <> ''
+	if not @masp is null
 		select MaNCC from CTSP where MaSP = @masp
 	else
 		select MaNCC from CTSP
 		group by MaNCC
 end
 go
--- Lấy tất cả Mã SP được cung cấp bởi NCC
+-- lấy mã sp và tên sản phẩm mà tồn tại trong CTSP hoặc do NCC nào đó cung cấp
+go
 create proc sp_get_all_masp
-	@mancc varchar(20)
+	@mancc varchar(10)
 as
 begin
 	if @mancc <> ''
-		select masp from CTSP where MaNCC = @mancc
+		select MaSP, TenSanPham
+		from SanPham
+		where MaSP in (select MaSP from CTSP where MaNCC = @mancc)
 	else
-		select MaSP from CTSP
-		group by MaSP
+		select MaSP, TenSanPham
+		from SanPham
+		where MaSP in (select MaSP from CTSP)
 end
 go
 -- declare type to input from WPF to SQL
 create type CTYCBGType as table (
 	MaNCC varchar(max),
-	MaSP varchar(max),
+	MaSP int,
 	SLSeMua int
 )
 go
@@ -112,28 +109,22 @@ begin
 		RAISERROR(@ErrorMessage, 16, 1)
 	end
 end
-<<<<<<< HEAD:SP.sql
-
-go
-create proc sp_get_ctbg @maYCBG varchar(10)
-=======
 go
 -- Lấy tát cả CTYCBG của YCBG
 create proc sp_get_CTYCBG
 	@maYCBG varchar(10)
->>>>>>> 94ec9e8c7ece0a560bb9796508ff575386f341f6:scriptDB/SP.sql
 as
 begin
-	select * from CTYCBaoGia where MaYCBaoGia = @maYCBG
+	select * 
+	from CTYCBaoGia A, (select MaSP, TenSanPham from SanPham) as B
+	where MaYCBaoGia = @maYCBG
+		and A.MaSP = B.MaSP
 end
-<<<<<<< HEAD:SP.sql
 go
-
-create proc sp_get_tenSP @maSP varchar(10)
+--
+create proc sp_get_tenSP 
+	@maSP int
 as
 begin
 	select TenSanPham from SanPham where MaSP = @maSP
 end
-=======
-
->>>>>>> 94ec9e8c7ece0a560bb9796508ff575386f341f6:scriptDB/SP.sql

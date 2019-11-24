@@ -75,7 +75,7 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    //command.Parameters.AddWithValue("@maYCBG", maYCBG);
+                    command.Parameters.AddWithValue("@maYCBG", maYCBG);
                     rdr = command.ExecuteReader();
 
                     while (rdr.Read())

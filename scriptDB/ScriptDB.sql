@@ -39,7 +39,7 @@ Primary Key  ([MaNCC])
 go
 
 Create table [SanPham] (
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[TenSanPham] Nvarchar(50) NOT NULL,
 	[SoLuongTon] Integer Default 0 NULL Check (SoLuongTon > -1 ),
 	[Thue] Money NULL,
@@ -49,7 +49,7 @@ go
 
 Create table [CTSP] (
 	[MaNCC] Varchar(10) NOT NULL,
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[GiaMua] Money Default 0 NULL Check (GiaMua > -1 ),
 	[NgayCapNhat] Datetime NULL,
 Primary Key  ([MaNCC],[MaSP])
@@ -69,7 +69,7 @@ go
 
 Create table [CTMua] (
 	[MaNCC] Varchar(10) NOT NULL,
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[MaDonMuaHang] Varchar(10) NOT NULL,
 	[SLMua] Integer NULL,
 	[DonGia] Money NULL,
@@ -89,14 +89,14 @@ go
 Create table [CTKeHoachMua] (
 	[MaKeHoachMuaHang] Varchar(10) NOT NULL,
 	[MaNCC] Varchar(10) NOT NULL,
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[SLDuTinhMua] Integer Default 0 NULL Check (SLDuTinhMua > -1 ),
 Primary Key  ([MaKeHoachMuaHang],[MaNCC],[MaSP])
 ) 
 go
 
 Create table [CTYeuCauMua] (
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[MaYeuCau] Varchar(10) NOT NULL,
 	[SLCanMua] Integer Default 0 NOT NULL Check (SLCanMua > -1 ),
 	[PheDuyetYeuCau] Varchar(20) NULL,
@@ -114,7 +114,7 @@ Primary Key  ([MaNhapKho])
 go
 
 Create table [CTNhapKho] (
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[MaNhapKho] Varchar(10) NOT NULL,
 	[SLNhap] Integer Default 0 NOT NULL Check (SLNhap > -1 ),
 Primary Key  ([MaSP],[MaNhapKho])
@@ -139,7 +139,7 @@ go
 
 Create table [CTYCBaoGia] (
 	[MaNCC] Varchar(10) NOT NULL,
-	[MaSP] Varchar(10) NOT NULL,
+	[MaSP] int NOT NULL,
 	[MaYCBaoGia] Varchar(10) NOT NULL,
 	[SLSeMua] Integer Default 0 NULL Check (SLSeMua > -1 ),
 	[GiaDaBao] Money Default 0 NULL Check (GiaDaBao > -1 ),

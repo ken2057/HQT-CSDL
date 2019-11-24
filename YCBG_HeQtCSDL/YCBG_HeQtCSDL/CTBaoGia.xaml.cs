@@ -23,20 +23,25 @@ namespace YCBG_HeQtCSDL
     /// </summary>
     public partial class CTBaoGia : Window
     {
+        public bool isClosed;
         string connectionString;
         ChiTietYeuCauBaoGiaVM chiTietYeuCauBaoGiaVM;
+        List<ChiTietBaoGiaVM> chiTietBaoGiaVMs;
+
         public CTBaoGia(string connectionString)
         {
             InitializeComponent();
             this.connectionString = connectionString;
+            isClosed = false;
 
             get_CTYCBH();
         }
         private void get_CTYCBH()
         {
-            List<ChiTietBaoGiaVM> chiTietBaoGiaVMs = new List<ChiTietBaoGiaVM>();
+            chiTietBaoGiaVMs = new List<ChiTietBaoGiaVM>();
+
             SqlDataReader rdr = null;
-            SqlDataReader rdr_getTenSP = null;
+            //SqlDataReader rdr_getTenSP = null;
             using (var conn = new SqlConnection(connectionString))
             using (var command = new SqlCommand("sp_get_CTYCBG", conn)
             {
@@ -89,13 +94,19 @@ namespace YCBG_HeQtCSDL
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.ToString(), "Lỗi");
+                    MessageBox.Show(e.Message, "Lỗi");
                 }
                 finally
                 {
                     conn.Close();
                 }
             }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            isClosed = true;
         }
     }
 }

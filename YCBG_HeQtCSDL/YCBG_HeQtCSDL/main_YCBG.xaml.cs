@@ -43,6 +43,13 @@ namespace YCBG_HeQtCSDL
             //MessageBox.Show(yeuCauBaoGiaVM.MaYCBG);
             cTBaoGia.ShowDialog();
             // Some operations with this row
+
+            //refresh when windows closed
+            if (cTBaoGia.isClosed)
+            {
+                get_YCBH();
+                dtgYCBG.Items.Refresh();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

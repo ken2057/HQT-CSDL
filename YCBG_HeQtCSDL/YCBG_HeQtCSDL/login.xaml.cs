@@ -30,8 +30,18 @@ namespace YCBG_HeQtCSDL
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang1"].ConnectionString;
             connectionString += "User ID=" + username.Text + "; Password=" + password.Text;
+=======
+            _login();
+        }
+
+        private void _login()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang2"].ConnectionString;
+            connectionString += "User ID=" + username.Text + "; Password=" + password.Password;
+>>>>>>> 94ec9e8c7ece0a560bb9796508ff575386f341f6
 
             //MessageBoxResult t = MessageBox.Show(connectionString, "T");
 
@@ -61,6 +71,14 @@ namespace YCBG_HeQtCSDL
         private void closeWindow()
         {
             this.Close();
+        }
+
+        private void password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                _login();
+            }
         }
     }
 }

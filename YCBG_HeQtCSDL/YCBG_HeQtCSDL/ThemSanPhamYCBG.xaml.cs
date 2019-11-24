@@ -221,7 +221,12 @@ namespace YCBG_HeQtCSDL
             return flag;
         }
         
-        private void btn_addCTYCBH_Click(object sender, RoutedEventArgs e)
+        private void btn_addCTYCBG_Click(object sender, RoutedEventArgs e)
+        {
+            add_CTYCBG();
+        }
+
+        private void add_CTYCBG()
         {
             try
             {
@@ -237,6 +242,10 @@ namespace YCBG_HeQtCSDL
                                 ""
                             ));
                         resetValue();
+                    } 
+                    else // thông báo lỗi khi đã tồn tại CTBG SP của NCC này trong danh sách
+                    {
+                        MessageBox.Show("Đã tồn tại YCBG Sản phẩm của NCC này trong danh sách", "Lỗi");
                     }
                 }
                 // when only cbo MaSP selected 
@@ -305,7 +314,7 @@ namespace YCBG_HeQtCSDL
             cboMaSP.ItemsSource = allMaSP;
         }
 
-        private void btn_XoaCTYCBH_Click(object sender, RoutedEventArgs e)
+        private void btn_XoaCTYCBG_Click(object sender, RoutedEventArgs e)
         {
             var index = dtgThemSanPhamYCBG.SelectedIndex;
             if(index != -1)
@@ -325,6 +334,14 @@ namespace YCBG_HeQtCSDL
         {
             base.OnClosed(e);
             isClosed = true;
+        }
+
+        private void txtSoLuong_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                add_CTYCBG();
+            }
         }
     }
 }

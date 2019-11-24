@@ -96,6 +96,7 @@
       <DependentUpon>ThemSanPhamYCBG.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ChiTietBaoGiaVM.cs" />
+    <Compile Include="ViewModel\ChiTietYeuCauBaoGiaVM.cs" />
     <Compile Include="ViewModel\ThemSanPhamYCBGVM.cs" />
     <Compile Include="ViewModel\YeuCauBaoGiaVM.cs" />
     <Page Include="CTBaoGia.xaml">

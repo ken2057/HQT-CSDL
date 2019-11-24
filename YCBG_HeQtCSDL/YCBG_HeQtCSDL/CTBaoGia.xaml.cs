@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -22,20 +24,22 @@ namespace YCBG_HeQtCSDL
     public partial class CTBaoGia : Window
     {
         string connectionString;
-        public CTBaoGia()
+        ChiTietYeuCauBaoGiaVM chiTietYeuCauBaoGiaVM;
+        public CTBaoGia(string connectionString)
         {
             InitializeComponent();
-            this.connectionString = connectionString;
+            this.connectionString = connectionString; // :)
+
             get_CTYCBH();
+            //MessageBox.Show(connectionString);
         }
         private void get_CTYCBH()
         {
-            ChiTietBaoGiaVM chiTietBaoGiaVM = new ChiTietBaoGiaVM();
             List<ChiTietBaoGiaVM> chiTietBaoGiaVMs = new List<ChiTietBaoGiaVM>();
-            SqlDataReader rdr = null;
-
-            using (var conn = new SqlConnection(this.connectionString))
-            using (var command = new SqlCommand("sp_get_ycbg", conn)
+            SqlDataReader rdr = null; 
+            SqlDataReader rdr_getTenSP = null;
+            using (var conn = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("sp_get_ctbg", conn) 
             {
                 CommandType = CommandType.StoredProcedure
             })
@@ -43,22 +47,50 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
+                    command.Parameters.AddWithValue("@maYCBG", main_YCBG.yeuCauBaoGiaVM.MaYCBG); // :)
+                    
                     rdr = command.ExecuteReader();
 
                     while (rdr.Read())
                     {
-                        yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
-                        yeuCauBaoGiaVM.MaYCBG = rdr["MaYCBaoGia"].ToString();
-                        yeuCauBaoGiaVM.NgayYCBG = rdr["NgayYCBaoGia"].ToString();
-                        yeuCauBaoGiaVM.TinhTrang = rdr["TinhTrang"].ToString();
-                        yeuCauBaoGiaVM.MaNV = rdr["MaNV"].ToString();
-                        yeuCauBaoGiaVMs.Add(yeuCauBaoGiaVM);
+                        
+                        chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
+                        chiTietYeuCauBaoGiaVM.NgayYCBG = main_YCBG.yeuCauBaoGiaVM.NgayYCBG;
+                        chiTietYeuCauBaoGiaVM.MaNhanVien = main_YCBG.yeuCauBaoGiaVM.MaNV;
+                        chiTietYeuCauBaoGiaVM.TenNCC = rdr["MaNCC"].ToString();
+                        chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
+                        chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();
+                        chiTietYeuCauBaoGiaVM.Gia = rdr["GiaDaBao"].ToString();
                     }
-                    dtgYCBG.ItemsSource = yeuCauBaoGiaVMs;
+
+                    //Lấy tên sản phẩm thông qua mã sp
+                    using (var con2 = new SqlConnection(connectionString))
+                    using (var getTenSP = new SqlCommand("sp_get_tenSP", con2)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    })
+                    {
+                        con2.Open();
+                        getTenSP.Parameters.AddWithValue("@maSP", chiTietYeuCauBaoGiaVM.MaSP);
+                        rdr_getTenSP = getTenSP.ExecuteReader();
+                            while (rdr_getTenSP.Read())
+                            {
+                                chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
+                            }
+                        con2.Close();
+                    }
+                        
+                    lbNgay.Content = chiTietYeuCauBaoGiaVM.NgayYCBG;
+                    lbNguoiPhuTrach.Content = chiTietYeuCauBaoGiaVM.MaNhanVien;
+                    lbNCC.Content = chiTietYeuCauBaoGiaVM.TenNCC;
+                    lbMaSP.Content = chiTietYeuCauBaoGiaVM.MaSP;
+                    lbTenSP.Content = chiTietYeuCauBaoGiaVM.TenSP;
+                    lbSL.Content = chiTietYeuCauBaoGiaVM.SL;
+                    lbGiaDaBao.Content = chiTietYeuCauBaoGiaVM.Gia; 
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    MessageBox.Show(e.ToString(), "Lỗi");
                 }
                 finally
                 {

@@ -106,3 +106,17 @@ begin
 		RAISERROR(@ErrorMessage, 16, 1)
 	end
 end
+
+go
+create proc sp_get_ctbg @maYCBG varchar(10)
+as
+begin
+	select * from CTYCBaoGia where MaYCBaoGia = @maYCBG
+end
+go
+
+create proc sp_get_tenSP @maSP varchar(10)
+as
+begin
+	select TenSanPham from SanPham where MaSP = @maSP
+end

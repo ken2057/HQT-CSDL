@@ -24,6 +24,26 @@ namespace YCBG_HeQtCSDL.ViewModel
         public int SoLuong { get; set; }
         [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
+
+        public ChiTietBaoGiaVM() { }
+        public ChiTietBaoGiaVM(string maSP, string tenMatHang, string tenNCC, decimal donGia, int soLuong, string ghiChu)
+        {
+            MaSP = maSP;
+            TenMatHang = tenMatHang;
+            TenNCC = tenNCC;
+            DonGia = donGia;
+            SoLuong = soLuong;
+            GhiChu = ghiChu;
+        }
+        public ChiTietBaoGiaVM(ChiTietBaoGiaVM ob)
+        {
+            MaSP = ob.MaSP;
+            TenMatHang = ob.TenMatHang;
+            TenNCC = ob.TenNCC;
+            DonGia = ob.DonGia;
+            SoLuong = ob.SoLuong;
+            GhiChu = ob.GhiChu;
+        }
     }
     public class RowToIndexConverter : MarkupExtension, IValueConverter
     {

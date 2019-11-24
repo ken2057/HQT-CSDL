@@ -30,7 +30,7 @@ namespace YCBG_HeQtCSDL
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang2"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang1"].ConnectionString;
             connectionString += "User ID=" + username.Text + "; Password=" + password.Text;
 
             //MessageBoxResult t = MessageBox.Show(connectionString, "T");

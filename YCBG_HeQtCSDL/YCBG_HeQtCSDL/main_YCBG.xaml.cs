@@ -22,7 +22,7 @@ namespace YCBG_HeQtCSDL
     /// </summary>
     public partial class main_YCBG : Window
     {
-        YeuCauBaoGiaVM yeuCauBaoGiaVM;
+        public static YeuCauBaoGiaVM yeuCauBaoGiaVM { get; set; }
         List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs;
         string connectionString;
         public main_YCBG(string connectionString)
@@ -37,8 +37,11 @@ namespace YCBG_HeQtCSDL
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridRow row = sender as DataGridRow;
-            CTBaoGia cTBaoGia = new CTBaoGia();
+            
+            CTBaoGia cTBaoGia = new CTBaoGia(connectionString);
+            yeuCauBaoGiaVM = (YeuCauBaoGiaVM)dtgYCBG.SelectedItem;
+            //chiTietBaoGiaVM = new ChiTietBaoGiaVM(((ChiTietBaoGiaVM)chiTietBaoGiaVMTemp));
+            //MessageBox.Show(yeuCauBaoGiaVM.MaYCBG);
             cTBaoGia.ShowDialog();
             // Some operations with this row
         }
@@ -72,7 +75,7 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@maYCBG", maYCBG);
+                    //command.Parameters.AddWithValue("@maYCBG", maYCBG);
                     rdr = command.ExecuteReader();
 
                     while (rdr.Read())

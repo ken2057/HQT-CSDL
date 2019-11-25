@@ -89,11 +89,17 @@
     <Compile Include="list_CTYCBG.xaml.cs">
       <DependentUpon>list_CTYCBG.xaml</DependentUpon>
     </Compile>
-    <Compile Include="login.xaml.cs">
+    <Compile Include="Pages\DonMuaHang.xaml.cs">
+      <DependentUpon>DonMuaHang.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\login.xaml.cs">
       <DependentUpon>login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="main_YCBG.xaml.cs">
-      <DependentUpon>main_YCBG.xaml</DependentUpon>
+    <Compile Include="Pages\showOption.xaml.cs">
+      <DependentUpon>showOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\YCBaoGia.xaml.cs">
+      <DependentUpon>YCBaoGia.xaml</DependentUpon>
     </Compile>
     <Compile Include="ThemSanPhamYCBG.xaml.cs">
       <DependentUpon>ThemSanPhamYCBG.xaml</DependentUpon>
@@ -108,12 +114,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="list_CTYCBG.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="login.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -127,7 +129,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="main_YCBG.xaml">
+    <Page Include="Pages\DonMuaHang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\showOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\YCBaoGia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

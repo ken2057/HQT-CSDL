@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +12,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Configuration;
-using System.Collections.Specialized;
-using System.Data.SqlClient;
-using System.Data;
 
-namespace YCBG_HeQtCSDL
+namespace YCBG_HeQtCSDL.Pages
 {
     /// <summary>
     /// Interaction logic for login.xaml
     /// </summary>
-    public partial class login : Window
+    public partial class login : Page
     {
         public login()
         {
@@ -35,7 +34,7 @@ namespace YCBG_HeQtCSDL
 
         private void _login()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang1"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang2"].ConnectionString;
             connectionString += "User ID=" + username.Text + "; Password=" + password.Password;
 
             //MessageBoxResult t = MessageBox.Show(connectionString, "T");
@@ -47,9 +46,9 @@ namespace YCBG_HeQtCSDL
                     conn.Open();
 
                     // open if login success
-                    main_YCBG themSanPhamYCBG = new main_YCBG(connectionString);
-                    closeWindow();
-                    themSanPhamYCBG.ShowDialog();
+                    NavigationService navService = NavigationService.GetNavigationService(this);
+                    showOption sO = new showOption(connectionString);
+                    navService.Navigate(sO);
                 }
                 catch (Exception exception)
                 {
@@ -63,14 +62,9 @@ namespace YCBG_HeQtCSDL
             }
         }
 
-        private void closeWindow()
-        {
-            this.Close();
-        }
-
         private void password_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 _login();
             }

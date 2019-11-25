@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\
 YCBG_HeQtCSDL
 none
 false
 DEBUG;TRACE
-D:\Code\C#\HQT-CSDL\YCBG_HeQtCSDL\YCBG_HeQtCSDL\App.xaml
-6287839638
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\App.xaml
+8-7934861
 
-33-715671567
-19-633282194
-CTBaoGia.xaml;list_CTYCBG.xaml;login.xaml;MainWindow.xaml;main_YCBG.xaml;ThemSanPhamYCBG.xaml;
+35368320724
+192031331877
+CTBaoGia.xaml;list_CTYCBG.xaml;MainWindow.xaml;Pages\DonMuaHang.xaml;Pages\login.xaml;Pages\showOption.xaml;Pages\YCBaoGia.xaml;ThemSanPhamYCBG.xaml;
 
 False
 

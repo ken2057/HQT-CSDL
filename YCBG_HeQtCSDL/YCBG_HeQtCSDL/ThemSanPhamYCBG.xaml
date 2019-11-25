@@ -41,7 +41,7 @@
         <TextBox Name="txtSoLuong" Grid.Column="2" Grid.Row="1"
                  MaxLength="5" KeyDown="txtSoLuong_KeyDown"
                  PreviewTextInput="txtSoLuong_PreviewTextInput"
-                    Margin="10" Background="Azure" Text="0"
+                    Margin="10" Background="Azure" Text="1"
                  BorderBrush="Red" BorderThickness="1"
                  />
         <!--<TextBox Name="txtGhiChu" Grid.Column="3" Grid.Row="1"

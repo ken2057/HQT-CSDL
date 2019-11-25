@@ -59,7 +59,7 @@ namespace YCBG_HeQtCSDL
             cboMaSP.DisplayMemberPath = "Value";
 
             //txtGhiChu.Text = "";
-            txtSoLuong.Text = "0";
+            txtSoLuong.Text = "1";
             dtgThemSanPhamYCBG.Items.Refresh();
         }
 
@@ -228,6 +228,10 @@ namespace YCBG_HeQtCSDL
         {
             try
             {
+                // số lượng tổi thiểu 1
+                if (int.Parse(txtSoLuong.Text) < 1)
+                    throw new FormatException();
+
                 // both comboBox not selected any thing
                 if (cboMaSP.SelectedItem != null && cboMaNCC.SelectedItem != null)
                 {
@@ -295,8 +299,8 @@ namespace YCBG_HeQtCSDL
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Số lượng phải lớn hơn hoặc bằng 0", "Lỗi");
-                txtSoLuong.Text = "0";
+                MessageBox.Show("Số lượng phải lớn hơn hoặc bằng 1", "Lỗi");
+                txtSoLuong.Text = "1";
                 txtSoLuong.Focus();
             }
             catch (Exception ex)

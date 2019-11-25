@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using YCBG_HeQtCSDL.Pages;
 using YCBG_HeQtCSDL.ViewModel;
 
 namespace YCBG_HeQtCSDL
@@ -68,7 +69,7 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@maYCBG", main_YCBG.yeuCauBaoGiaVM.MaYCBG);
+                    command.Parameters.AddWithValue("@maYCBG", YCBaoGia.yeuCauBaoGiaVM.MaYCBG);
 
                     rdr = command.ExecuteReader();
                     listChiTIetYeuCauBaoGias = new List<ListChiTIetYeuCauBaoGia>();
@@ -78,7 +79,7 @@ namespace YCBG_HeQtCSDL
                         listChiTIetYeuCauBaoGia.NhaCungCap = rdr["MaNCC"].ToString();
                         listChiTIetYeuCauBaoGia.TenSanPham = rdr["TenSanPham"].ToString();
                         listChiTIetYeuCauBaoGia.SoLuong = int.Parse(rdr["SLSeMua"].ToString());
-                        listChiTIetYeuCauBaoGia.TinhTrang = main_YCBG.yeuCauBaoGiaVM.TinhTrang;
+                        listChiTIetYeuCauBaoGia.TinhTrang = YCBaoGia.yeuCauBaoGiaVM.TinhTrang;
                         listChiTIetYeuCauBaoGias.Add(listChiTIetYeuCauBaoGia);
                     }
                     dtgList_YCBG.ItemsSource = listChiTIetYeuCauBaoGias;

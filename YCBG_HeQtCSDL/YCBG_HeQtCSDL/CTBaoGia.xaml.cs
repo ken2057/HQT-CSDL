@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using YCBG_HeQtCSDL.Pages;
 using YCBG_HeQtCSDL.ViewModel;
 
 namespace YCBG_HeQtCSDL
@@ -48,7 +49,7 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@maYCBaoGia", main_YCBG.yeuCauBaoGiaVM.MaYCBG);
+                    command.Parameters.AddWithValue("@maYCBaoGia", YCBaoGia.yeuCauBaoGiaVM.MaYCBG);
                     command.Parameters.AddWithValue("@maNCC", list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC);
                     command.Parameters.AddWithValue("@maSP", list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP);
                     rdr = command.ExecuteReader();
@@ -56,8 +57,8 @@ namespace YCBG_HeQtCSDL
                     while (rdr.Read())
                     {
                         list_CTYCBG.chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG = main_YCBG.yeuCauBaoGiaVM.NgayYCBG;
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien = main_YCBG.yeuCauBaoGiaVM.MaNV;
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG = YCBaoGia.yeuCauBaoGiaVM.NgayYCBG;
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien = YCBaoGia.yeuCauBaoGiaVM.MaNV;
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC = rdr["MaNCC"].ToString();
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();

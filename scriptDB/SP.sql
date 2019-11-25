@@ -128,3 +128,14 @@ as
 begin
 	select TenSanPham from SanPham where MaSP = @maSP
 end
+
+--Chi tiết 1 YCBG
+create proc sp_getDetailCTYCBG @maYCBaoGia char(10), @maNCC char(10), @maSP char(10)
+as
+begin
+	select * 
+	from CTYCBaoGia A, (select MaSP, TenSanPham from SanPham) as B
+	where MaYCBaoGia = @maYCBaoGia
+		and A.MaNCC = @maNCC
+		and A.MaSP = B.MaSP
+end

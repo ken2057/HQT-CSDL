@@ -35,7 +35,7 @@ namespace YCBG_HeQtCSDL
 
         private void _login()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang2"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang1"].ConnectionString;
             connectionString += "User ID=" + username.Text + "; Password=" + password.Password;
 
             //MessageBoxResult t = MessageBox.Show(connectionString, "T");

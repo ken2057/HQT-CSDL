@@ -9,7 +9,7 @@ using System.Windows.Markup;
 
 namespace YCBG_HeQtCSDL.ViewModel
 {
-    class ChiTietYeuCauBaoGiaVM
+    public class ChiTietYeuCauBaoGiaVM
     {
         [DisplayName("Ngày yêu cầi")]
         public string NgayYCBG { get; set; }

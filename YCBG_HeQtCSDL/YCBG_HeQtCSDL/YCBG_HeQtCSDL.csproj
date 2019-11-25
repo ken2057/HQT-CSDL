@@ -86,6 +86,9 @@
     <Compile Include="EF\SanPham.cs" />
     <Compile Include="EF\YeuCauBaoGia.cs" />
     <Compile Include="EF\YeuCauMuaHang.cs" />
+    <Compile Include="list_CTYCBG.xaml.cs">
+      <DependentUpon>list_CTYCBG.xaml</DependentUpon>
+    </Compile>
     <Compile Include="login.xaml.cs">
       <DependentUpon>login.xaml</DependentUpon>
     </Compile>
@@ -97,9 +100,14 @@
     </Compile>
     <Compile Include="ViewModel\ChiTietBaoGiaVM.cs" />
     <Compile Include="ViewModel\ChiTietYeuCauBaoGiaVM.cs" />
+    <Compile Include="ViewModel\ListChiTIetYeuCauBaoGia.cs" />
     <Compile Include="ViewModel\ThemSanPhamYCBGVM.cs" />
     <Compile Include="ViewModel\YeuCauBaoGiaVM.cs" />
     <Page Include="CTBaoGia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="list_CTYCBG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

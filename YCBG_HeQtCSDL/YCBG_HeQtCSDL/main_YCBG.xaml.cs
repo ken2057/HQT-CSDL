@@ -38,14 +38,14 @@ namespace YCBG_HeQtCSDL
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             yeuCauBaoGiaVM = (YeuCauBaoGiaVM)dtgYCBG.SelectedItem;
-            CTBaoGia cTBaoGia = new CTBaoGia(connectionString);
+            list_CTYCBG list_CTYCBG = new list_CTYCBG(connectionString);
             //chiTietBaoGiaVM = new ChiTietBaoGiaVM(((ChiTietBaoGiaVM)chiTietBaoGiaVMTemp));
             //MessageBox.Show(yeuCauBaoGiaVM.MaYCBG);
-            cTBaoGia.ShowDialog();
+            list_CTYCBG.ShowDialog();
             // Some operations with this row
 
             //refresh when windows closed
-            if (cTBaoGia.isClosed)
+            if (list_CTYCBG.isClosed)
             {
                 get_YCBH();
                 dtgYCBG.Items.Refresh();

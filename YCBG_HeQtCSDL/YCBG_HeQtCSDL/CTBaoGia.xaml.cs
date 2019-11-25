@@ -25,8 +25,6 @@ namespace YCBG_HeQtCSDL
     {
         public bool isClosed;
         string connectionString;
-        ChiTietYeuCauBaoGiaVM chiTietYeuCauBaoGiaVM;
-        List<ChiTietBaoGiaVM> chiTietBaoGiaVMs;
 
         public CTBaoGia(string connectionString)
         {
@@ -38,12 +36,11 @@ namespace YCBG_HeQtCSDL
         }
         private void get_CTYCBH()
         {
-            chiTietBaoGiaVMs = new List<ChiTietBaoGiaVM>();
 
             SqlDataReader rdr = null;
             //SqlDataReader rdr_getTenSP = null;
             using (var conn = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("sp_get_CTYCBG", conn)
+            using (var command = new SqlCommand("sp_getDetailCTYCBG", conn)
             {
                 CommandType = CommandType.StoredProcedure
             })
@@ -51,20 +48,21 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@maYCBG", main_YCBG.yeuCauBaoGiaVM.MaYCBG);
-
+                    command.Parameters.AddWithValue("@maYCBaoGia", main_YCBG.yeuCauBaoGiaVM.MaYCBG);
+                    command.Parameters.AddWithValue("@maNCC", list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC);
+                    command.Parameters.AddWithValue("@maSP", list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP);
                     rdr = command.ExecuteReader();
-
+                    
                     while (rdr.Read())
                     {
-                        chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
-                        chiTietYeuCauBaoGiaVM.NgayYCBG = main_YCBG.yeuCauBaoGiaVM.NgayYCBG;
-                        chiTietYeuCauBaoGiaVM.MaNhanVien = main_YCBG.yeuCauBaoGiaVM.MaNV;
-                        chiTietYeuCauBaoGiaVM.TenNCC = rdr["MaNCC"].ToString();
-                        chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
-                        chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();
-                        chiTietYeuCauBaoGiaVM.Gia = rdr["GiaDaBao"].ToString();
-                        chiTietYeuCauBaoGiaVM.TenSP = rdr["TenSanPham"].ToString();
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG = main_YCBG.yeuCauBaoGiaVM.NgayYCBG;
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien = main_YCBG.yeuCauBaoGiaVM.MaNV;
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC = rdr["MaNCC"].ToString();
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.Gia = rdr["GiaDaBao"].ToString();
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP = rdr["TenSanPham"].ToString();
                     }
 
                     //Lấy tên sản phẩm thông qua mã sp
@@ -75,22 +73,22 @@ namespace YCBG_HeQtCSDL
                     //})
                     //{
                     //    con2.Open();
-                    //    getTenSP.Parameters.AddWithValue("@maSP", chiTietYeuCauBaoGiaVM.MaSP);
+                    //    getTenSP.Parameters.AddWithValue("@maSP", list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP);
                     //    rdr_getTenSP = getTenSP.ExecuteReader();
                     //    while (rdr_getTenSP.Read())
                     //    {
-                    //        chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
+                    //        list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
                     //    }
                     //    con2.Close();
                     //}
 
-                    lbNgay.Content = chiTietYeuCauBaoGiaVM.NgayYCBG;
-                    lbNguoiPhuTrach.Content = chiTietYeuCauBaoGiaVM.MaNhanVien;
-                    lbNCC.Content = chiTietYeuCauBaoGiaVM.TenNCC;
-                    lbMaSP.Content = chiTietYeuCauBaoGiaVM.MaSP;
-                    lbTenSP.Content = chiTietYeuCauBaoGiaVM.TenSP;
-                    lbSL.Content = chiTietYeuCauBaoGiaVM.SL;
-                    lbGiaDaBao.Content = chiTietYeuCauBaoGiaVM.Gia;
+                    lbNgay.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG;
+                    lbNguoiPhuTrach.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien;
+                    lbNCC.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC;
+                    lbMaSP.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP;
+                    lbTenSP.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP;
+                    lbSL.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.SL;
+                    lbGiaDaBao.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.Gia;
                 }
                 catch (Exception e)
                 {

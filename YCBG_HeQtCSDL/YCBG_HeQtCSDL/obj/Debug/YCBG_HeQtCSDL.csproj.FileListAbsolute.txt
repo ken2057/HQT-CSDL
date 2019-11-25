@@ -64,3 +64,11 @@ D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\DonMuaHang.baml
 D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\login.baml
 D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\showOption.baml
 D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\YCBaoGia.baml
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Views\ThemMuaHang.g.cs
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Views\ThemMuaHang.baml
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemMoi.g.cs
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemTuKHMua.g.cs
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemTuYCBG.g.cs
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemMoi.baml
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemTuKHMua.baml
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemTuYCBG.baml

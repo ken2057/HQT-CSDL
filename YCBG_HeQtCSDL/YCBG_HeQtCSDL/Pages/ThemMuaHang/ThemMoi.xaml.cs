@@ -8,39 +8,41 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YCBG_HeQtCSDL.ViewModel;
 
-namespace YCBG_HeQtCSDL
+namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
 {
     /// <summary>
-    /// Interaction logic for ThemSanPhamYCBG.xaml
+    /// Interaction logic for ThemMoi.xaml
     /// </summary>
-    public partial class ThemSanPhamYCBG : Window
+    public partial class ThemMoi : Page
     {
         string connectionString;
         List<string> allMaNCC;
         Dictionary<int, string> allMaSP;
         List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs;
-        public bool isClosed;
+        Window parent;
 
-        public ThemSanPhamYCBG(string connectionString)
+        public ThemMoi(string connectionString, Window parent)
         {
-            isClosed = false;
-            this.connectionString = connectionString;
             InitializeComponent();
+            this.connectionString = connectionString;
+            this.parent = parent;
 
             themSanPhamYCBGVMs = new List<ThemSanPhamYCBGVM>();
-            dtgThemSanPhamYCBG.ItemsSource = themSanPhamYCBGVMs;
+            dtgThemHDMua.ItemsSource = themSanPhamYCBGVMs;
 
             resetValue();
         }
+
+       
 
         private void resetValue(int? masp = null, string mancc = "")
         {
@@ -60,15 +62,17 @@ namespace YCBG_HeQtCSDL
 
             //txtGhiChu.Text = "";
             txtSoLuong.Text = "1";
-            dtgThemSanPhamYCBG.Items.Refresh();
+            dtgThemHDMua.Items.Refresh();
+            
+            // tính tổng tiền
+            if(themSanPhamYCBGVMs.Count > 0)
+               txtTongTien.Text = themSanPhamYCBGVMs.Sum(t => t.Gia * t.SoLuong).ToString("#,##;(#,##)");
         }
 
-        private void createNewYCBG()
+        private void taoHDMua()
         {
-            List<ChiTietBaoGiaVM> yeuCauBaoGiaVMs = new List<ChiTietBaoGiaVM>();
-
             using (var conn = new SqlConnection(this.connectionString))
-            using (var command = new SqlCommand("sp_add_YCBG", conn)
+            using (var command = new SqlCommand("sp_add_HDMua", conn)
             {
                 CommandType = CommandType.StoredProcedure
             })
@@ -88,24 +92,11 @@ namespace YCBG_HeQtCSDL
                         table.Rows.Add(t.NhaCungCap, t.MaSP, t.SoLuong);
                     });
 
-                    command.Parameters.AddWithValue("@ctYCBG", table);
+                    command.Parameters.AddWithValue("@ctMua", table);
                     command.ExecuteNonQuery();
 
                     MessageBox.Show("Done");
-                    this.Close();
-                    //var rdr = command.ExecuteReader();
-
-                    //while (rdr.Read())
-                    //{
-                    //    ChiTietBaoGiaVM ct = new ChiTietBaoGiaVM();
-                    //    ct.MaSP = rdr["MaSP"].ToString();
-                    //    ct.TenNCC = rdr["MaNCC"].ToString();
-                    //    //ct.TenMatHang = rdr["MatHang"].ToString();
-                    //    ct.SoLuong = int.Parse(rdr["SLSeMua"].ToString());
-
-                    //    yeuCauBaoGiaVMs.Add(ct);
-                    //}
-                    //dtgThemSanPhamYCBG.ItemsSource = yeuCauBaoGiaVMs;
+                    parent.Close();
                 }
                 catch (Exception e)
                 {
@@ -119,15 +110,6 @@ namespace YCBG_HeQtCSDL
             }
         }
 
-        private void btn_addYCBG_Click(object sender, RoutedEventArgs e)
-        {
-            // only create when have atleast 1 CTYCBG
-            if (themSanPhamYCBGVMs.Count > 0)
-                createNewYCBG();
-            else
-                MessageBox.Show("Phải có ít nhất 1 CTYBG");
-        }
-
         // check duplicate in CTYCBG
         // if exists not add into the list
         private bool checkExistCTYCBG(int maSP, string maNCC)
@@ -139,13 +121,8 @@ namespace YCBG_HeQtCSDL
             });
             return flag;
         }
-        
-        private void btn_addCTYCBG_Click(object sender, RoutedEventArgs e)
-        {
-            add_CTYCBG();
-        }
 
-        private void add_CTYCBG()
+        private void add_CTMua()
         {
             try
             {
@@ -159,17 +136,20 @@ namespace YCBG_HeQtCSDL
                     int key = int.Parse(cboMaSP.SelectedValue.ToString());
                     if (checkExistCTYCBG(key, cboMaNCC.SelectedValue.ToString()))
                     {
+                        var data = Func.getData.gia_ton_sp(connectionString, key, cboMaNCC.SelectedValue.ToString());
                         themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                                 key,
                                 allMaSP[key],
                                 cboMaNCC.SelectedValue.ToString(),
-                                int.Parse(txtSoLuong.Text)
-                            ));
+                                int.Parse(txtSoLuong.Text),
+                                decimal.Parse(data[1].ToString()),
+                                int.Parse(data[0].ToString())
+                            )) ;
                         resetValue();
                     }
                     else // thông báo lỗi khi đã tồn tại CTBG SP của NCC này trong danh sách
                     {
-                        MessageBox.Show("Đã tồn tại YCBG Sản phẩm của NCC này trong danh sách", "Lỗi");
+                        MessageBox.Show("Đã tồn tại mua Sản phẩm của NCC này trong danh sách", "Lỗi");
                     }
                 }
                 // when only cbo MaSP selected 
@@ -181,11 +161,14 @@ namespace YCBG_HeQtCSDL
                         int key = int.Parse(cboMaSP.SelectedValue.ToString());
                         if (checkExistCTYCBG(key, maNCC))
                         {
+                            var data = Func.getData.gia_ton_sp(connectionString, key, maNCC);
                             themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                                 key,
                                 allMaSP[key],
                                 maNCC,
-                                int.Parse(txtSoLuong.Text)
+                                int.Parse(txtSoLuong.Text),
+                                decimal.Parse(data[1].ToString()),
+                                int.Parse(data[0].ToString())
                             ));
                         }
 
@@ -200,11 +183,14 @@ namespace YCBG_HeQtCSDL
                     {
                         if (checkExistCTYCBG(SP, cboMaNCC.SelectedValue.ToString()))
                         {
+                            var data = Func.getData.gia_ton_sp(connectionString, SP, cboMaNCC.SelectedValue.ToString());
                             themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                                 SP,
                                 allMaSP[SP],
                                 cboMaNCC.SelectedValue.ToString(),
-                                int.Parse(txtSoLuong.Text)
+                                int.Parse(txtSoLuong.Text),
+                                decimal.Parse(data[1].ToString()),
+                                int.Parse(data[0].ToString())
                             ));
                         }
                     });
@@ -245,12 +231,12 @@ namespace YCBG_HeQtCSDL
 
         private void btn_XoaCTYCBG_Click(object sender, RoutedEventArgs e)
         {
-            var index = dtgThemSanPhamYCBG.SelectedIndex;
-            if(index != -1)
+            foreach (ThemSanPhamYCBGVM item in dtgThemHDMua.SelectedItems)
             {
-                themSanPhamYCBGVMs.RemoveAt(index);
-                dtgThemSanPhamYCBG.Items.Refresh();
+                txtTongTien.Text = (decimal.Parse(txtTongTien.Text) - item.Gia * item.SoLuong).ToString("#,##;(#,##)");
+                themSanPhamYCBGVMs.RemoveAt(themSanPhamYCBGVMs.IndexOf(item));
             }
+            dtgThemHDMua.Items.Refresh();
         }
 
         private void txtSoLuong_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -259,19 +245,31 @@ namespace YCBG_HeQtCSDL
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            isClosed = true;
-        }
-
         private void txtSoLuong_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
-                add_CTYCBG();
+                add_CTMua();
             }
         }
 
+        private void btn_Huy_Click(object sender, RoutedEventArgs e)
+        {
+            Content = null;
+        }
+
+        private void btn_addCTYCBG_Click(object sender, RoutedEventArgs e)
+        {
+            add_CTMua();
+        }
+
+        private void btn_addYCBG_Click(object sender, RoutedEventArgs e)
+        {
+            // only create when have atleast 1 CTYCBG
+            if (themSanPhamYCBGVMs.Count > 0)
+                taoHDMua();
+            else
+                MessageBox.Show("Phải có ít nhất 1 sản phẩm mua");
+        }
     }
 }

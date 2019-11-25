@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:YCBG_HeQtCSDL.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="showOption">
+      Title="Chức năng"
+      WindowTitle="Chức năng">
 
     <Grid>
         <Grid.ColumnDefinitions>

@@ -4,11 +4,56 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:YCBG_HeQtCSDL.Pages"
+      xmlns:local1="clr-namespace:YCBG_HeQtCSDL.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="DonMuaHang">
+      Title="Đơn mua hàng">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="577*"/>
+            <ColumnDefinition Width="160*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Tìm đơn mua hàng:" FontSize="15" Grid.ColumnSpan="2"/>
+        <TextBox Name="txtMaSP" Grid.Row="1" Grid.ColumnSpan="2" 
+                     BorderBrush="Red" BorderThickness="1" Margin="5"
+                     KeyDown="txtMaSP_KeyDown"
+                     MaxLength="10"/>
+
+        <Button Grid.Row="1" Grid.Column="3" Name="btnThemMuaHang"
+                   Click="btnThemMuaHang_Click"
+                    BorderBrush="Red" BorderThickness="1" Margin="5">Thêm</Button>
+
+        <DataGrid Name="dtgHDMua"
+                        Grid.Row="2" Grid.ColumnSpan="4" 
+                              ColumnWidth="*"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch"
+                              AutoGenerateColumns="False"
+                              EnableColumnVirtualization="False"
+                              EnableRowVirtualization="False"
+                              CanUserAddRows="False"
+                              Margin="5"
+                              SelectionMode="Single" Grid.RowSpan="1"
+                  MouseDoubleClick="dtgYCBG_MouseDoubleClick">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" IsReadOnly="True" Width="30" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={local1:RowToIndexConverter}}"/>
+                <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding NguoiPhuTrachMua}"/>
+                <DataGridTextColumn Header="Ngày đặt" IsReadOnly="True" Binding="{Binding NgayDat}"/>
+                <DataGridTextColumn Header="Tình trạng" IsReadOnly="True" Binding="{Binding TinhTrang}"/>
+                <DataGridTextColumn Header="Thời gian giao" IsReadOnly="True" Binding="{Binding ThoiGianGiao}"/>
+                <DataGridTextColumn Header="Tổng tiền" IsReadOnly="True" Binding="{Binding TongTienMua, StringFormat='#,##;(#,##)'}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="btnBack" Click="btnBack_Click" Content="Back" Grid.Column="0" Grid.Row="3"/>
     </Grid>
 </Page>

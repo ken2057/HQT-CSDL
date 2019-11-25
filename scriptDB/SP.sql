@@ -39,13 +39,6 @@ begin
 		where MaSP in (select MaSP from CTSP)
 end
 go
--- declare type to input from WPF to SQL
-create type CTYCBGType as table (
-	MaNCC varchar(max),
-	MaSP int,
-	SLSeMua int
-)
-go
 -- Thêm từng dòng trong CTYCBG gửi từ WPF
 create proc sp_add_CTYCBG
 	@maYCBG varchar(10),
@@ -89,12 +82,11 @@ begin
 		declare @ma varchar(10), @error int
 		set @ma = (select cast(@maYCBG as varchar(10)))
 		-- create YCBG
-		select  * from YeuCauBaoGia
 		insert into YeuCauBaoGia
 		values (
 			@ma,
 			GETDATE(), 
-			NULL, 
+			N'Đã tạo', 
 			(select manv from Account
 				where tendangnhap in (select ORIGINAL_LOGIN()))
 		)
@@ -128,14 +120,97 @@ as
 begin
 	select TenSanPham from SanPham where MaSP = @maSP
 end
-
+go
 --Chi tiết 1 YCBG
-create proc sp_getDetailCTYCBG @maYCBaoGia char(10), @maNCC char(10), @maSP char(10)
+--create proc sp_getDetailCTYCBG @maYCBaoGia char(10), @maNCC char(10), @maSP char(10)
+--as
+--begin
+--	select * 
+--	from CTYCBaoGia A, (select MaSP, TenSanPham from SanPham) as B
+--	where MaYCBaoGia = @maYCBaoGia
+--		and A.MaNCC = @maNCC
+--		and A.MaSP = B.MaSP
+--end
+go
+create proc sp_get_all_donMua
 as
 begin
-	select * 
-	from CTYCBaoGia A, (select MaSP, TenSanPham from SanPham) as B
-	where MaYCBaoGia = @maYCBaoGia
-		and A.MaNCC = @maNCC
-		and A.MaSP = B.MaSP
+	select * from DonMuaHang
 end
+go
+--
+-- Thêm từng dòng trong CTYCBG gửi từ WPF
+create proc sp_add_CTHDMua
+	@maHD varchar(10),
+	@ctycbg CTYCBGType readonly
+as
+begin
+	-- declare
+	declare cr_CTMua cursor forward_only
+	for select * from @ctycbg
+	--
+	declare @mancc varchar(10), @masp varchar(10), @sl int
+	open cr_CTMua
+
+	select * from DonMuaHang
+	fetch next from cr_CTMua into @mancc, @masp, @sl
+	while @@FETCH_STATUS = 0
+	begin 
+		insert into CTMua
+		values (@mancc, @masp, @maHD, @sl,
+				(select giamua from CTSP where MaSP = @masp and MaNCC = @mancc) * @sl )
+
+		fetch next from cr_CTMua into @mancc, @masp, @sl
+	end
+	close cr_CTMua
+	deallocate cr_CTMua
+end
+go
+-- Tạo YCBG và CTYCBG
+create proc sp_add_HDMua
+	@ctMua CTYCBGType readonly
+as
+begin
+	-- find MaYCBH valid
+	declare @maHD int
+	select @maHD = count(MaDonMuaHang) from DonMuaHang
+	if exists (select * from DonMuaHang with (updlock) where MaDonMuaHang = @maHD+'')
+		select @maHD = @maHD + 1
+	-- create
+	set xact_abort on
+	begin tran
+		declare @ma varchar(10), @error int
+		set @ma = (select cast(@maHD as varchar(10)))
+		-- create YCBG
+		
+		insert into DonMuaHang(MaDonMuaHang, NgayDat, TinhTrang, NguoiPhuTrachMua, TongTienMua)
+		values (
+			@ma,
+			GETDATE(), 
+			N'Đã tạo', 
+			(select manv from Account
+				where tendangnhap in (select ORIGINAL_LOGIN())),
+			0
+		)
+		-- create CTMua
+		exec @error = sp_add_CTHDMua @ma, @ctMua
+	commit tran
+	if @@ERROR <> 0 or @error <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
+end
+go
+create proc sp_get_gia_ton_sp
+	@masp int,
+	@mancc varchar(10)
+as
+begin
+	select GiaMua, SoLuongTon
+	from ctsp A, (select SoLuongTon from SanPham where MaSP = @masp) B
+	where A.MaSP = @masp and A.MaNCC = @mancc
+end
+go

@@ -112,5 +112,12 @@ namespace YCBG_HeQtCSDL.Pages
                 dtgYCBG.Items.Refresh();
             }
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService navService = NavigationService.GetNavigationService(this);
+            showOption pg = new showOption(connectionString);
+            navService.Navigate(pg);
+        }
     }
 }

@@ -7,7 +7,7 @@
       xmlns:local1="clr-namespace:YCBG_HeQtCSDL.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="YCBaoGia">
+      Title="Yêu cầu báo giá">
 
     <Grid>
         <Grid>
@@ -56,6 +56,7 @@
                     <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding MaNV}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button x:Name="btnBack" Click="btnBack_Click" Grid.Column="0" Grid.Row="3" Content="Back"/>
         </Grid>
     </Grid>
 </Page>

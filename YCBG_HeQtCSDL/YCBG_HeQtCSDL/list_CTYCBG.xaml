@@ -51,6 +51,7 @@
                     <DataGridTextColumn Header="Mã nhà cung cấp" IsReadOnly="True" Binding="{Binding NhaCungCap}"/>
                     <DataGridTextColumn Header="Tên sản phẩm" IsReadOnly="True" Binding="{Binding TenSanPham}"/>
                     <DataGridTextColumn Header="Số lượng" IsReadOnly="True" Binding="{Binding SoLuong}"/>
+                    <DataGridTextColumn Header="Giá đã báo" IsReadOnly="True" Binding="{Binding GiaDaBao, StringFormat='#,##;(#,##)'}"/>
                     <DataGridTextColumn Header="Tình trạng" IsReadOnly="True" Binding="{Binding TinhTrang}"/>
                 </DataGrid.Columns>
             </DataGrid>

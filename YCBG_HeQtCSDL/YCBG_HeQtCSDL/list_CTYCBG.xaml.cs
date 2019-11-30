@@ -26,15 +26,19 @@ namespace YCBG_HeQtCSDL
     public partial class list_CTYCBG : Window
     {
         public static ChiTietYeuCauBaoGiaVM chiTietYeuCauBaoGiaVM { get; set; }
-        List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs;
         public bool isClosed;
         string connectionString;
+
+        YeuCauBaoGiaVM clickedYCBG;
+        List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs;
         ListChiTIetYeuCauBaoGia listChiTIetYeuCauBaoGia;
         List<ListChiTIetYeuCauBaoGia> listChiTIetYeuCauBaoGias;
-        public list_CTYCBG(string connectionString)
+
+        public list_CTYCBG(string connectionString, YeuCauBaoGiaVM ycbgVM)
         {
             this.connectionString = connectionString;
             InitializeComponent();
+            this.clickedYCBG = ycbgVM;
             get_listCTYCBG();
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -42,7 +46,8 @@ namespace YCBG_HeQtCSDL
             chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
             chiTietYeuCauBaoGiaVM.TenNCC = ((ListChiTIetYeuCauBaoGia)dtgList_YCBG.SelectedItem).NhaCungCap;
             chiTietYeuCauBaoGiaVM.MaSP = ((ListChiTIetYeuCauBaoGia)dtgList_YCBG.SelectedItem).TenSanPham;
-            CTBaoGia cTBaoGia = new CTBaoGia(connectionString);
+
+            CTBaoGia cTBaoGia = new CTBaoGia(connectionString, clickedYCBG, chiTietYeuCauBaoGiaVM);
             //chiTietBaoGiaVM = new ChiTietBaoGiaVM(((ChiTietBaoGiaVM)chiTietBaoGiaVMTemp));
             //MessageBox.Show(yeuCauBaoGiaVM.MaYCBG);
             cTBaoGia.ShowDialog();
@@ -58,57 +63,8 @@ namespace YCBG_HeQtCSDL
 
         private void get_listCTYCBG()
         {
-            SqlDataReader rdr = null;
-            //SqlDataReader rdr_getTenSP = null;
-            using (var conn = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("sp_get_CTYCBG", conn)
-            {
-                CommandType = CommandType.StoredProcedure
-            })
-            {
-                try
-                {
-                    conn.Open();
-                    command.Parameters.AddWithValue("@maYCBG", YCBaoGia.yeuCauBaoGiaVM.MaYCBG);
-
-                    rdr = command.ExecuteReader();
-                    listChiTIetYeuCauBaoGias = new List<ListChiTIetYeuCauBaoGia>();
-                    while (rdr.Read())
-                    {
-                        listChiTIetYeuCauBaoGia = new ListChiTIetYeuCauBaoGia();
-                        listChiTIetYeuCauBaoGia.NhaCungCap = rdr["MaNCC"].ToString();
-                        listChiTIetYeuCauBaoGia.TenSanPham = rdr["TenSanPham"].ToString();
-                        listChiTIetYeuCauBaoGia.SoLuong = int.Parse(rdr["SLSeMua"].ToString());
-                        listChiTIetYeuCauBaoGia.TinhTrang = YCBaoGia.yeuCauBaoGiaVM.TinhTrang;
-                        listChiTIetYeuCauBaoGias.Add(listChiTIetYeuCauBaoGia);
-                    }
-                    dtgList_YCBG.ItemsSource = listChiTIetYeuCauBaoGias;
-                    //Lấy tên sản phẩm thông qua mã sp
-                    //using (var con2 = new SqlConnection(connectionString))
-                    //using (var getTenSP = new SqlCommand("sp_get_tenSP", con2)
-                    //{
-                    //    CommandType = CommandType.StoredProcedure
-                    //})
-                    //{
-                    //    con2.Open();
-                    //    getTenSP.Parameters.AddWithValue("@maSP", chiTietYeuCauBaoGiaVM.MaSP);
-                    //    rdr_getTenSP = getTenSP.ExecuteReader();
-                    //    while (rdr_getTenSP.Read())
-                    //    {
-                    //        chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
-                    //    }
-                    //    con2.Close();
-                    //}
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "Lỗi");
-                }
-                finally
-                {
-                    conn.Close();
-                }
-            }
+            listChiTIetYeuCauBaoGias = Func.getData.get_listCTYCBG(connectionString, clickedYCBG);
+            dtgList_YCBG.ItemsSource = listChiTIetYeuCauBaoGias;
         }
     }
 }

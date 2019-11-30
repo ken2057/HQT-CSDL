@@ -100,6 +100,9 @@
     <Compile Include="Pages\showOption.xaml.cs">
       <DependentUpon>showOption.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ThemMuaHang\infoYCBG.xaml.cs">
+      <DependentUpon>infoYCBG.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ThemMuaHang\ThemMoi.xaml.cs">
       <DependentUpon>ThemMoi.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\showOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ThemMuaHang\infoYCBG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

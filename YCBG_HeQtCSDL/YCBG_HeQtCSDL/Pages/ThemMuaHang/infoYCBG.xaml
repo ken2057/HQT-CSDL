@@ -1,4 +1,4 @@
-﻿<Page x:Class="YCBG_HeQtCSDL.Pages.ThemMuaHang.ThemTuYCBG"
+﻿<Page x:Class="YCBG_HeQtCSDL.Pages.ThemMuaHang.infoYCBG"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,15 +7,16 @@
       xmlns:local1="clr-namespace:YCBG_HeQtCSDL.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ThemTuYCBG">
+      Title="Thông tin YCBG">
 
     <Grid>
-        <Grid>
+        <Grid >
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="6*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160*"/>
@@ -23,18 +24,18 @@
                 <ColumnDefinition Width="577*"/>
                 <ColumnDefinition Width="160*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Tìm theo YCBG:" FontSize="15" Grid.ColumnSpan="2"/>
-            <TextBox Name="txtMaSP" Grid.Row="1" Grid.ColumnSpan="2" 
-                     BorderBrush="Red" BorderThickness="1" Margin="5"
-                     KeyDown="txtMaSP_KeyDown"
-                     MaxLength="10"/>
 
-            <Button Grid.Row="1" Grid.Column="3"
-                    Name="btnChon" Click="btnChon_Click"
-                    BorderBrush="Red" BorderThickness="1" Margin="5">Thêm</Button>
+            <Button Grid.Row="3" Grid.Column="3"
+                    Name="btnChonYCBG" Click="btnChonYCBG_Click"
+                    BorderBrush="Red" BorderThickness="1" Margin="5">Chọn</Button>
 
-            <DataGrid Name="dtgYCBG"
-                        Grid.Row="2" Grid.ColumnSpan="4" 
+            <Button Grid.Row="3" Grid.Column="0"
+                    Name="btnBack" Click="btnBack_Click"
+                    BorderBrush="Red" BorderThickness="1" Margin="5">Quay lại</Button>
+
+            <DataGrid Name="dtgList_YCBG"
+                        Grid.Row="1" Grid.ColumnSpan="4" 
+                      Grid.RowSpan="2"
                               ColumnWidth="*"
                               VerticalAlignment="Stretch"
                               HorizontalAlignment="Stretch"
@@ -43,7 +44,7 @@
                               EnableRowVirtualization="False"
                               CanUserAddRows="False"
                       Margin="5"
-                              SelectionMode="Single" Grid.RowSpan="1">
+                              SelectionMode="Single" >
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow">
                         <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -51,12 +52,15 @@
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" IsReadOnly="True" Width="30" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={local1:RowToIndexConverter}}"/>
-                    <DataGridTextColumn Header="Ngày" IsReadOnly="True" Binding="{Binding NgayYCBG}"/>
+                    <DataGridTextColumn Header="Mã nhà cung cấp" IsReadOnly="True" Binding="{Binding NhaCungCap}"/>
+                    <DataGridTextColumn Header="Tên sản phẩm" IsReadOnly="True" Binding="{Binding TenSanPham}"/>
+                    <DataGridTextColumn Header="Số lượng" IsReadOnly="True" Binding="{Binding SoLuong}"/>
+                    <DataGridTextColumn Header="Giá đã báo" IsReadOnly="True" Binding="{Binding GiaDaBao, StringFormat='#,##;(#,##)'}"/>
                     <DataGridTextColumn Header="Tình trạng" IsReadOnly="True" Binding="{Binding TinhTrang}"/>
-                    <DataGridTextColumn Header="Nhân viên" IsReadOnly="True" Binding="{Binding MaNV}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="btnBack" Click="btnBack_Click" Grid.Column="0" Grid.Row="3" Content="Back"/>
         </Grid>
+
+
     </Grid>
 </Page>

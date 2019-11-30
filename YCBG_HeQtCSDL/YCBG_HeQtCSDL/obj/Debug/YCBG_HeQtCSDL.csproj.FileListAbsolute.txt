@@ -72,3 +72,5 @@ D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\Them
 D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemMoi.baml
 D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemTuKHMua.baml
 D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\ThemTuYCBG.baml
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\infoYCBG.g.cs
+D:\project\hqt-csdl\YCBG_HeQtCSDL\YCBG_HeQtCSDL\obj\Debug\Pages\ThemMuaHang\infoYCBG.baml

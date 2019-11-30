@@ -39,6 +39,28 @@ namespace YCBG_HeQtCSDL.Pages
             navService.Navigate(pg);
         }
 
+        private void txtMaSP_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void dtgYCBG_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void btnThemMuaHang_Click(object sender, RoutedEventArgs e)
+        {
+            Views.ThemMuaHang v = new Views.ThemMuaHang(connectionString);
+            v.ShowDialog();
+
+            if(v.isClosed)
+            {
+                get_all_donMuaHang();
+                dtgHDMua.Items.Refresh();
+            }
+        }
+
         private void get_all_donMuaHang()
         {
             lstDonMua = new List<EF.DonMuaHang>();
@@ -62,7 +84,8 @@ namespace YCBG_HeQtCSDL.Pages
                         donMua.NguoiPhuTrachMua = rdr["NguoiPhuTrachMua"].ToString();
                         donMua.NgayDat = DateTime.Parse(rdr["NgayDat"].ToString());
                         donMua.TinhTrang = rdr["TinhTrang"].ToString();
-                        donMua.TongTienMua = decimal.Parse(rdr["TongTienMua"].ToString());
+                        string tongTien = rdr["TongTienMua"].ToString();
+                        donMua.TongTienMua = tongTien == "" ? 0 : decimal.Parse(tongTien);
                         //
                         if (rdr["ThoiGianGiao"].ToString() == "")
                             donMua.ThoiGianGiao = null;
@@ -75,35 +98,13 @@ namespace YCBG_HeQtCSDL.Pages
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    MessageBox.Show(e.Message, "Lỗi");
                 }
                 finally
                 {
                     conn.Close();
                 }
 
-            }
-        }
-
-        private void txtMaSP_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void dtgYCBG_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void btnThemMuaHang_Click(object sender, RoutedEventArgs e)
-        {
-            Views.ThemMuaHang v = new Views.ThemMuaHang(connectionString);
-            v.ShowDialog();
-
-            if(v.isClosed)
-            {
-                get_all_donMuaHang();
-                dtgHDMua.Items.Refresh();
             }
         }
     }

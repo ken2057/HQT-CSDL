@@ -87,8 +87,7 @@ begin
 			@ma,
 			GETDATE(), 
 			N'Đã tạo', 
-			(select manv from Account
-				where tendangnhap in (select ORIGINAL_LOGIN()))
+			(select manv from Account where tendangnhap in (select ORIGINAL_LOGIN()))
 		)
 		-- create CTYCBH
 		exec @error = sp_add_CTYCBG @ma, @ctYCBG
@@ -152,13 +151,14 @@ begin
 	declare @mancc varchar(10), @masp varchar(10), @sl int
 	open cr_CTMua
 
-	select * from DonMuaHang
 	fetch next from cr_CTMua into @mancc, @masp, @sl
 	while @@FETCH_STATUS = 0
 	begin 
+		declare @tien money
+		select @tien = giamua from CTSP where MaSP = @masp and MaNCC = @mancc
+
 		insert into CTMua
-		values (@mancc, @masp, @maHD, @sl,
-				(select giamua from CTSP where MaSP = @masp and MaNCC = @mancc) * @sl )
+		values (@mancc, @masp, @maHD, @sl, @tien)
 
 		fetch next from cr_CTMua into @mancc, @masp, @sl
 	end
@@ -175,7 +175,7 @@ begin
 	declare @maHD int
 	select @maHD = count(MaDonMuaHang) from DonMuaHang
 	if exists (select * from DonMuaHang with (updlock) where MaDonMuaHang = @maHD+'')
-		select @maHD = @maHD + 1
+		set @maHD = @maHD + 1
 	-- create
 	set xact_abort on
 	begin tran
@@ -188,8 +188,7 @@ begin
 			@ma,
 			GETDATE(), 
 			N'Đã tạo', 
-			(select manv from Account
-				where tendangnhap in (select ORIGINAL_LOGIN())),
+			(select manv from Account where tendangnhap in (select ORIGINAL_LOGIN())),
 			0
 		)
 		-- create CTMua

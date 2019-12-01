@@ -26,12 +26,16 @@ namespace YCBG_HeQtCSDL
     {
         public bool isClosed;
         string connectionString;
+        YeuCauBaoGiaVM clickedYCGB;
+        ChiTietYeuCauBaoGiaVM clickedCTYCBG;
 
-        public CTBaoGia(string connectionString)
+        public CTBaoGia(string connectionString, YeuCauBaoGiaVM ycbgVM, ChiTietYeuCauBaoGiaVM ctYCBGVM)
         {
             InitializeComponent();
             this.connectionString = connectionString;
             isClosed = false;
+            this.clickedCTYCBG = ctYCBGVM;
+            this.clickedYCGB = ycbgVM;
 
             get_CTYCBH();
         }
@@ -49,39 +53,22 @@ namespace YCBG_HeQtCSDL
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@maYCBaoGia", YCBaoGia.yeuCauBaoGiaVM.MaYCBG);
-                    command.Parameters.AddWithValue("@maNCC", list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC);
-                    command.Parameters.AddWithValue("@maSP", list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP);
+                    command.Parameters.AddWithValue("@maYCBaoGia", clickedYCGB.MaYCBG);
+                    command.Parameters.AddWithValue("@maNCC", clickedCTYCBG.TenNCC);
+                    command.Parameters.AddWithValue("@maSP", clickedCTYCBG.MaSP);
                     rdr = command.ExecuteReader();
                     
                     while (rdr.Read())
                     {
                         list_CTYCBG.chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG = YCBaoGia.yeuCauBaoGiaVM.NgayYCBG;
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien = YCBaoGia.yeuCauBaoGiaVM.MaNV;
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG = clickedYCGB.NgayYCBG;
+                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien = clickedYCGB.MaNV;
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC = rdr["MaNCC"].ToString();
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.Gia = rdr["GiaDaBao"].ToString();
                         list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP = rdr["TenSanPham"].ToString();
                     }
-
-                    //Lấy tên sản phẩm thông qua mã sp
-                    //using (var con2 = new SqlConnection(connectionString))
-                    //using (var getTenSP = new SqlCommand("sp_get_tenSP", con2)
-                    //{
-                    //    CommandType = CommandType.StoredProcedure
-                    //})
-                    //{
-                    //    con2.Open();
-                    //    getTenSP.Parameters.AddWithValue("@maSP", list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP);
-                    //    rdr_getTenSP = getTenSP.ExecuteReader();
-                    //    while (rdr_getTenSP.Read())
-                    //    {
-                    //        list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP = rdr_getTenSP["TenSanPham"].ToString();
-                    //    }
-                    //    con2.Close();
-                    //}
 
                     lbNgay.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG;
                     lbNguoiPhuTrach.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien;

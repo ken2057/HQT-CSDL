@@ -23,20 +23,20 @@ namespace YCBG_HeQtCSDL.Pages
     /// </summary>
     public partial class YCBaoGia : Page
     {
-        public static YeuCauBaoGiaVM yeuCauBaoGiaVM { get; set; }
+        YeuCauBaoGiaVM yeuCauBaoGiaVM;
         List<YeuCauBaoGiaVM> yeuCauBaoGiaVMs;
         string connectionString;
         public YCBaoGia(string connectionString)
         {
             InitializeComponent();
             this.connectionString = connectionString;
-            get_YCBH();
+            get_YCBG();
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             yeuCauBaoGiaVM = (YeuCauBaoGiaVM)dtgYCBG.SelectedItem;
-            list_CTYCBG list_CTYCBG = new list_CTYCBG(connectionString);
+            list_CTYCBG list_CTYCBG = new list_CTYCBG(connectionString, this.yeuCauBaoGiaVM);
             //chiTietBaoGiaVM = new ChiTietBaoGiaVM(((ChiTietBaoGiaVM)chiTietBaoGiaVMTemp));
             //MessageBox.Show(yeuCauBaoGiaVM.MaYCBG);
             list_CTYCBG.ShowDialog();
@@ -45,7 +45,7 @@ namespace YCBG_HeQtCSDL.Pages
             //refresh when windows closed
             if (list_CTYCBG.isClosed)
             {
-                get_YCBH();
+                get_YCBG();
                 dtgYCBG.Items.Refresh();
             }
         }
@@ -58,12 +58,12 @@ namespace YCBG_HeQtCSDL.Pages
             //refresh when windows closed
             if (themSanPhamYCBG.isClosed)
             {
-                get_YCBH();
+                get_YCBG();
                 dtgYCBG.Items.Refresh();
             }
         }
 
-        private void get_YCBH(string maYCBG = "")
+        private void get_YCBG(string maYCBG = "")
         {
 
             yeuCauBaoGiaVMs = new List<YeuCauBaoGiaVM>();
@@ -108,7 +108,7 @@ namespace YCBG_HeQtCSDL.Pages
         {
             if (e.Key == Key.Enter)
             {
-                get_YCBH(txtMaSP.Text);
+                get_YCBG(txtMaSP.Text);
                 dtgYCBG.Items.Refresh();
             }
         }

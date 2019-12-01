@@ -38,7 +38,7 @@ namespace YCBG_HeQtCSDL.Views
         private void btnThemTuYCBG_Click(object sender, RoutedEventArgs e)
         {
             NavigationService navService = NavigationService.GetNavigationService(this);
-            frameThemMuaHang.Content = new Pages.ThemMuaHang.ThemTuYCBG(connectionString);
+            frameThemMuaHang.Content = new Pages.ThemMuaHang.ThemTuYCBG(connectionString, this);
         }
 
         private void btnThemTuKeHoachMua_Click(object sender, RoutedEventArgs e)

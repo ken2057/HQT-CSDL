@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using YCBG_HeQtCSDL.ViewModel;
 
 namespace YCBG_HeQtCSDL.Func
 {
@@ -117,6 +118,91 @@ namespace YCBG_HeQtCSDL.Func
                     conn.Close();
                 }
                 return allMaNCC;
+            }
+        }
+
+        public static List<ListChiTIetYeuCauBaoGia> get_listCTYCBG(string connectionString, YeuCauBaoGiaVM ycbgVM)
+        {
+            List<ListChiTIetYeuCauBaoGia> listChiTIetYeuCauBaoGias = new List<ListChiTIetYeuCauBaoGia>();
+            ListChiTIetYeuCauBaoGia listChiTIetYeuCauBaoGia;
+
+            SqlDataReader rdr = null;
+            //SqlDataReader rdr_getTenSP = null;
+            using (var conn = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("sp_get_CTYCBG", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            })
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@maYCBG", ycbgVM.MaYCBG);
+
+                    rdr = command.ExecuteReader();
+                    listChiTIetYeuCauBaoGias = new List<ListChiTIetYeuCauBaoGia>();
+                    while (rdr.Read())
+                    {
+                        listChiTIetYeuCauBaoGia = new ListChiTIetYeuCauBaoGia();
+                        listChiTIetYeuCauBaoGia.NhaCungCap = rdr["MaNCC"].ToString();
+                        listChiTIetYeuCauBaoGia.TenSanPham = rdr["TenSanPham"].ToString();
+                        listChiTIetYeuCauBaoGia.SoLuong = int.Parse(rdr["SLSeMua"].ToString());
+                        listChiTIetYeuCauBaoGia.GiaDaBao = decimal.Parse(rdr["GiaDaBao"].ToString());
+                        listChiTIetYeuCauBaoGia.TinhTrang = ycbgVM.TinhTrang;
+                        listChiTIetYeuCauBaoGia.MaSP = int.Parse(rdr["MaSP"].ToString());
+
+                        listChiTIetYeuCauBaoGias.Add(listChiTIetYeuCauBaoGia);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Lỗi");
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                return listChiTIetYeuCauBaoGias;
+            }
+        }
+
+        public static List<ChiTietYeuCauBaoGiaVM> get_min_CTYCBG(string connectionString, string maYCBG)
+        {
+            List<ChiTietYeuCauBaoGiaVM> lstCTYCBG = new List<ChiTietYeuCauBaoGiaVM>();
+
+            SqlDataReader rdr = null;
+            using (var conn = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("sp_get_min_CTYCBG", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            })
+            {
+                try
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("@maYCBG", maYCBG);
+
+                    rdr = command.ExecuteReader();
+                    
+                    while (rdr.Read())
+                    {
+                        lstCTYCBG.Add(new ChiTietYeuCauBaoGiaVM
+                        {
+                            MaSP = rdr["maSP"].ToString(),
+                            TenNCC = rdr["MaNCC"].ToString(),
+                            SL = rdr["SLSeMua"].ToString()
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Lỗi");
+                }
+                finally
+                {
+                    conn.Close();
+                }
+                return lstCTYCBG;
             }
         }
     }

@@ -153,6 +153,10 @@ namespace YCBG_HeQtCSDL
                 if (int.Parse(txtSoLuong.Text) < 1)
                     throw new FormatException();
 
+                // số lượng phải bé hơn 10000
+                if (int.Parse(txtSoLuong.Text) > 10000)
+                    throw new IndexOutOfRangeException();
+
                 // both comboBox not selected any thing
                 if (cboMaSP.SelectedItem != null && cboMaNCC.SelectedItem != null)
                 {
@@ -215,7 +219,12 @@ namespace YCBG_HeQtCSDL
                     MessageBox.Show("Các trường không hợp lệ", "Lỗi");
                 }
             }
-            catch (FormatException ex)
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Số lượng phải bé hơn 10000", "Lỗi");
+                txtSoLuong.Focus();
+            }
+            catch (FormatException)
             {
                 MessageBox.Show("Số lượng phải lớn hơn hoặc bằng 1", "Lỗi");
                 txtSoLuong.Text = "1";

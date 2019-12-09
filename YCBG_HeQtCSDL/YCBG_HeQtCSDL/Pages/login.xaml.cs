@@ -37,7 +37,7 @@ namespace YCBG_HeQtCSDL.Pages
             string connectionString = ConfigurationManager.ConnectionStrings["QLMuaHang2"].ConnectionString;
             connectionString += "User ID=" + username.Text + "; Password=" + password.Password;
 
-            //MessageBoxResult t = MessageBox.Show(connectionString, "T");
+            //MessageBox.Show(connectionString, "T");
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -50,9 +50,9 @@ namespace YCBG_HeQtCSDL.Pages
                     showOption sO = new showOption(connectionString);
                     navService.Navigate(sO);
                 }
-                catch (Exception exception)
+                catch (Exception ex)
                 {
-                    //MessageBox.Show(exception.ToString());
+                    //MessageBox.Show(ex.ToString());
                     MessageBox.Show("Login fail", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally

@@ -464,16 +464,6 @@ Grant insert on [PhieuNhapKho] to [ThuKho]
 go
 Grant references on [PhieuNhapKho] to [ThuKho]
 go
-Grant select on [CTNhapKho] to [Admin]
-go
-Grant update on [CTNhapKho] to [Admin]
-go
-Grant delete on [CTNhapKho] to [Admin]
-go
-Grant insert on [CTNhapKho] to [Admin]
-go
-Grant references on [CTNhapKho] to [Admin]
-go
 Grant select on [CTNhapKho] to [ThuKho]
 go
 Grant update on [CTNhapKho] to [ThuKho]
@@ -484,26 +474,6 @@ Grant insert on [CTNhapKho] to [ThuKho]
 go
 Grant references on [CTNhapKho] to [ThuKho]
 go
-Grant select on [Role] to [Admin]
-go
-Grant update on [Role] to [Admin]
-go
-Grant delete on [Role] to [Admin]
-go
-Grant insert on [Role] to [Admin]
-go
-Grant references on [Role] to [Admin]
-go
-Grant select on [YeuCauBaoGia] to [Admin]
-go
-Grant update on [YeuCauBaoGia] to [Admin]
-go
-Grant delete on [YeuCauBaoGia] to [Admin]
-go
-Grant insert on [YeuCauBaoGia] to [Admin]
-go
-Grant references on [YeuCauBaoGia] to [Admin]
-go
 Grant select on [YeuCauBaoGia] to [QuanLy]
 go
 Grant update on [YeuCauBaoGia] to [QuanLy]
@@ -513,16 +483,6 @@ go
 Grant insert on [YeuCauBaoGia] to [QuanLy]
 go
 Grant references on [YeuCauBaoGia] to [QuanLy]
-go
-Grant select on [CTYCBaoGia] to [Admin]
-go
-Grant update on [CTYCBaoGia] to [Admin]
-go
-Grant delete on [CTYCBaoGia] to [Admin]
-go
-Grant insert on [CTYCBaoGia] to [Admin]
-go
-Grant references on [CTYCBaoGia] to [Admin]
 go
 Grant select on [CTYCBaoGia] to [QuanLy]
 go
@@ -544,14 +504,3 @@ Grant insert on [CTYCBaoGia] to [NhanVien]
 go
 Grant references on [CTYCBaoGia] to [NhanVien]
 go
-Grant select on [Account] to [Admin]
-go
-Grant update on [Account] to [Admin]
-go
-Grant delete on [Account] to [Admin]
-go
-Grant insert on [Account] to [Admin]
-go
-Grant references on [Account] to [Admin]
-go
-use master

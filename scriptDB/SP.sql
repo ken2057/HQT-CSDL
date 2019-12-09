@@ -2,13 +2,13 @@
 go
 -- Lấy tất cả YCBG
 create proc sp_get_ycbg
-	@maYCBG varchar(10)
+	@ngayYCBG date
 as
 begin
-	if(@maYCBG <> '')
-		select * from YeuCauBaoGia where MaYCBaoGia like '%'+@maYCBG+'%'
+	if(not @ngayYCBG is null)
+		select * from YeuCauBaoGia where datediff(day, NgayYCBaoGia, @ngayYCBG) = 0
 	else
-	select * from YeuCauBaoGia
+		select * from YeuCauBaoGia
 end
 go
 -- Lấy tất cả Mã NCC có sản phẩm cung cấp
@@ -132,9 +132,10 @@ go
 --end
 go
 create proc sp_get_all_donMua
+	@maNV varchar(20)
 as
 begin
-	select * from DonMuaHang
+	select * from DonMuaHang where NguoiPhuTrachMua like '%'+@maNV+'%'
 end
 go
 --
@@ -268,3 +269,34 @@ begin
 	set GiaDaBao = @gia
 	where MaYCBaoGia = @maYCBG and MaNCC = @maNCC and MaSP = @maSP
 end
+go
+create proc sp_get_kehoachmua
+	@maNV varchar(20)
+as
+begin
+	if(not @maNV = "") 
+		select * from KeHoachMuaHang where MaNV = @maNV 
+	else
+		select * from KeHoachMuaHang 
+end
+go
+create proc sp_get_ctkhmua
+	@maKHMua varchar(20)
+as
+begin
+	select MaNCC, A.MaSP, SLDuTinhMua, TenSanPham
+	from CTKeHoachMua A, SanPham B
+	where MaKeHoachMuaHang = @maKHMua
+	and A.MaSP = B.MaSP
+end
+go
+create proc sp_get_ctmua
+	@MaDonMuaHang varchar(20)
+as
+begin
+	select MaNCC, A.MaSP, SLMua, TenSanPham, A.DonGia
+	from CTMua A, SanPham B
+	where MaDonMuaHang = @MaDonMuaHang
+	and A.MaSP = B.MaSP
+end
+go

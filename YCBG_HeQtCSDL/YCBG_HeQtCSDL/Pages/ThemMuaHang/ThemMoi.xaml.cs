@@ -26,6 +26,7 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
     {
         string connectionString;
         YeuCauBaoGiaVM selectedYCBG;
+        EF.KeHoachMuaHang selectedKHMua;
 
         List<string> allMaNCC;
         Dictionary<int, string> allMaSP;
@@ -55,6 +56,41 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
             lapMuaTuYCBG();
 
             resetValue();
+        }
+
+        public ThemMoi(string connectionString, Window parent, EF.KeHoachMuaHang kmMua)
+        {
+            InitializeComponent();
+            this.selectedKHMua = kmMua;
+            this.connectionString = connectionString;
+            this.parent = parent;
+
+            themSanPhamYCBGVMs = new List<ThemSanPhamYCBGVM>();
+            lapMuaTuKHMua();
+
+            resetValue();
+        }
+
+        private void lapMuaTuKHMua()
+        {
+            List<CTKHMuaVM> listCTKHMua = Func.getData.get_CTKHMua(connectionString, selectedKHMua.MaKeHoachMuaHang);
+            // add each item in listCTYCBG to list MuaHang
+            listCTKHMua.ForEach(ctKHMua =>
+            {
+                if (checkExistCTYCBG(ctKHMua.MaSP, ctKHMua.MaNCC))
+                {
+                    var data = Func.getData.gia_ton_sp(connectionString, ctKHMua.MaSP, ctKHMua.MaNCC);
+                    themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
+                            ctKHMua.MaSP,
+                            ctKHMua.TenSP,
+                            ctKHMua.MaNCC,
+                            ctKHMua.SLMua,
+                            decimal.Parse(data[1].ToString()),
+                            int.Parse(data[0].ToString())
+                        ));
+                }
+            });
+            dtgThemHDMua.ItemsSource = themSanPhamYCBGVMs;
         }
 
         private void lapMuaTuYCBG()

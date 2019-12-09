@@ -94,11 +94,17 @@
     <Compile Include="Pages\DonMuaHang.xaml.cs">
       <DependentUpon>DonMuaHang.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\infoDonMua.xaml.cs">
+      <DependentUpon>infoDonMua.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\login.xaml.cs">
       <DependentUpon>login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\showOption.xaml.cs">
       <DependentUpon>showOption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ThemMuaHang\infoKHMua.xaml.cs">
+      <DependentUpon>infoKHMua.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ThemMuaHang\infoYCBG.xaml.cs">
       <DependentUpon>infoYCBG.xaml</DependentUpon>
@@ -120,6 +126,8 @@
     </Compile>
     <Compile Include="ViewModel\ChiTietBaoGiaVM.cs" />
     <Compile Include="ViewModel\ChiTietYeuCauBaoGiaVM.cs" />
+    <Compile Include="ViewModel\CTHDMua.cs" />
+    <Compile Include="ViewModel\CTKHMuaVM.cs" />
     <Compile Include="ViewModel\ListChiTIetYeuCauBaoGia.cs" />
     <Compile Include="ViewModel\RowToIndexConverter.cs" />
     <Compile Include="ViewModel\ThemSanPhamYCBGVM.cs" />
@@ -151,11 +159,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\infoDonMua.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\showOption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ThemMuaHang\infoKHMua.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

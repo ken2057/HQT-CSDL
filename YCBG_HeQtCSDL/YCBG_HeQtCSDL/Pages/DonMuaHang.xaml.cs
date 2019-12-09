@@ -39,14 +39,11 @@ namespace YCBG_HeQtCSDL.Pages
             navService.Navigate(pg);
         }
 
-        private void txtMaSP_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
         private void dtgYCBG_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            NavigationService navService = NavigationService.GetNavigationService(this);
+            infoDonMua pg = new infoDonMua(connectionString, lstDonMua[dtgHDMua.SelectedIndex]);
+            navService.Navigate(pg);
         }
 
         private void btnThemMuaHang_Click(object sender, RoutedEventArgs e)
@@ -61,51 +58,18 @@ namespace YCBG_HeQtCSDL.Pages
             }
         }
 
-        private void get_all_donMuaHang()
+        private void get_all_donMuaHang(string maNV = "")
         {
-            lstDonMua = new List<EF.DonMuaHang>();
-            SqlDataReader rdr = null;
+            lstDonMua = Func.getData.get_all_donMuaHang(connectionString, maNV);
+            dtgHDMua.ItemsSource = lstDonMua;
+            dtgHDMua.Items.Refresh();
 
-            using (var conn = new SqlConnection(this.connectionString))
-            using (var command = new SqlCommand("sp_get_all_donMua", conn)
-            {
-                CommandType = CommandType.StoredProcedure
-            })
-            {
-                try
-                {
-                    conn.Open();
-                    rdr = command.ExecuteReader();
+        }
 
-                    while (rdr.Read())
-                    {
-                        donMua = new EF.DonMuaHang();
-                        donMua.MaDonMuaHang = rdr["MaDonMuaHang"].ToString();
-                        donMua.NguoiPhuTrachMua = rdr["NguoiPhuTrachMua"].ToString();
-                        donMua.NgayDat = DateTime.Parse(rdr["NgayDat"].ToString());
-                        donMua.TinhTrang = rdr["TinhTrang"].ToString();
-                        string tongTien = rdr["TongTienMua"].ToString();
-                        donMua.TongTienMua = tongTien == "" ? 0 : decimal.Parse(tongTien);
-                        //
-                        if (rdr["ThoiGianGiao"].ToString() == "")
-                            donMua.ThoiGianGiao = null;
-                        else
-                            donMua.ThoiGianGiao = DateTime.Parse(rdr["ThoiGianGiao"].ToString());
-
-                        lstDonMua.Add(donMua);
-                    }
-                    dtgHDMua.ItemsSource = lstDonMua;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "Lỗi");
-                }
-                finally
-                {
-                    conn.Close();
-                }
-
-            }
+        private void txtMaNV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                get_all_donMuaHang(txtMaNV.Text);
         }
     }
 }

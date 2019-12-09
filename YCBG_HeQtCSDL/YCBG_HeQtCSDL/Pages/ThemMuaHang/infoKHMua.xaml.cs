@@ -16,53 +16,44 @@ using System.Windows.Shapes;
 namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
 {
     /// <summary>
-    /// Interaction logic for ThemTuKHMua.xaml
+    /// Interaction logic for infoKHMua.xaml
     /// </summary>
-    public partial class ThemTuKHMua : Page
+    public partial class infoKHMua : Page
     {
         string connectionString;
-        List<EF.KeHoachMuaHang> listKHMua;
         EF.KeHoachMuaHang khMua;
+        List<ViewModel.CTKHMuaVM> listCTKHMua;
         Window parent;
 
-        public ThemTuKHMua(string connectionString, Window parent)
+        public infoKHMua(string connectionString, Window parent, EF.KeHoachMuaHang khMua)
         {
             InitializeComponent();
+
             this.connectionString = connectionString;
+            this.khMua = khMua;
             this.parent = parent;
 
-            get_KHMua();
+            get_CTKHMua();
         }
 
-        private void get_KHMua(string maNV = "")
+        private void get_CTKHMua()
         {
-            listKHMua = Func.getData.get_KHMua(this.connectionString, maNV);
-            dtgKHMua.ItemsSource = listKHMua;
-            dtgKHMua.Items.Refresh();
+            listCTKHMua = Func.getData.get_CTKHMua(connectionString, khMua.MaKeHoachMuaHang);
+            dtgList_KHMua.ItemsSource = listCTKHMua;
+            dtgList_KHMua.Items.Refresh();
         }
 
-        private void txtMaNV_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-                get_KHMua(txtMaNV.Text);
-        }
-
-        private void dtgKHMua_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void btnChonYCBG_Click(object sender, RoutedEventArgs e)
         {
             NavigationService navService = NavigationService.GetNavigationService(this);
-            infoKHMua sO = new infoKHMua(connectionString, parent, listKHMua[dtgKHMua.SelectedIndex]);
+            ThemMoi sO = new ThemMoi(connectionString, parent, khMua);
             navService.Navigate(sO);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            Content = null;
-        }
-
-        private void btnChon_Click(object sender, RoutedEventArgs e)
-        {
             NavigationService navService = NavigationService.GetNavigationService(this);
-            ThemMoi sO = new ThemMoi(connectionString, parent, listKHMua[dtgKHMua.SelectedIndex]);
+            ThemTuYCBG sO = new ThemTuYCBG(connectionString, parent);
             navService.Navigate(sO);
         }
     }

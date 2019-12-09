@@ -44,7 +44,7 @@ namespace YCBG_HeQtCSDL.Views
         private void btnThemTuKeHoachMua_Click(object sender, RoutedEventArgs e)
         {
             NavigationService navService = NavigationService.GetNavigationService(this);
-            frameThemMuaHang.Content = new Pages.ThemMuaHang.ThemTuKHMua(connectionString);
+            frameThemMuaHang.Content = new Pages.ThemMuaHang.ThemTuKHMua(connectionString, this);
         }
 
         protected override void OnClosed(EventArgs e)

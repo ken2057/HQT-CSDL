@@ -46,7 +46,6 @@ namespace YCBG_HeQtCSDL.Pages
             if (list_CTYCBG.isClosed)
             {
                 get_YCBG();
-                dtgYCBG.Items.Refresh();
             }
         }
 
@@ -59,65 +58,35 @@ namespace YCBG_HeQtCSDL.Pages
             if (themSanPhamYCBG.isClosed)
             {
                 get_YCBG();
-                dtgYCBG.Items.Refresh();
             }
         }
 
-        private void get_YCBG(string maYCBG = "")
+        private void get_YCBG(DateTime? ngayYCBG = null)
         {
-
-            yeuCauBaoGiaVMs = new List<YeuCauBaoGiaVM>();
-            SqlDataReader rdr = null;
-
-            using (var conn = new SqlConnection(this.connectionString))
-            using (var command = new SqlCommand("sp_get_ycbg", conn)
-            {
-                CommandType = CommandType.StoredProcedure
-            })
-            {
-                try
-                {
-                    conn.Open();
-                    command.Parameters.AddWithValue("@maYCBG", maYCBG);
-                    rdr = command.ExecuteReader();
-
-                    while (rdr.Read())
-                    {
-                        yeuCauBaoGiaVM = new YeuCauBaoGiaVM();
-                        yeuCauBaoGiaVM.MaYCBG = rdr["MaYCBaoGia"].ToString();
-                        yeuCauBaoGiaVM.NgayYCBG = rdr["NgayYCBaoGia"].ToString();
-                        yeuCauBaoGiaVM.TinhTrang = rdr["TinhTrang"].ToString();
-                        yeuCauBaoGiaVM.MaNV = rdr["MaNV"].ToString();
-                        yeuCauBaoGiaVMs.Add(yeuCauBaoGiaVM);
-                    }
-                    dtgYCBG.ItemsSource = yeuCauBaoGiaVMs;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-                finally
-                {
-                    conn.Close();
-                }
-
-            }
+            yeuCauBaoGiaVMs = Func.getData.get_YCBG(this.connectionString, ngayYCBG);
+            dtgYCBG.ItemsSource = yeuCauBaoGiaVMs;
+            dtgYCBG.Items.Refresh();
         }
 
-        private void txtMaSP_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                get_YCBG(txtMaSP.Text);
-                dtgYCBG.Items.Refresh();
-            }
-        }
+        //private void txtMaSP_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Enter)
+        //    {
+        //        get_YCBG(txtMaSP.Text);
+        //        dtgYCBG.Items.Refresh();
+        //    }
+        //}
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService navService = NavigationService.GetNavigationService(this);
             showOption pg = new showOption(connectionString);
             navService.Navigate(pg);
+        }
+
+        private void dateSearch_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            get_YCBG(dateSearch.SelectedDate);
         }
     }
 }

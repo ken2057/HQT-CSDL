@@ -10,7 +10,7 @@ namespace YCBG_HeQtCSDL.ViewModel
     {
         public int MaSP { get; set; }
         public string TenSP { get; set; }
-        public string MaNCC { get; set; }
+        public string MaNPP { get; set; }
         public int SoLuong { get; set; }
         public double Gia { get; set; }
     }

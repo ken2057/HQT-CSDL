@@ -19,6 +19,7 @@ namespace YCBG_HeQtCSDL.EF
         [StringLength(10)]
         public string MaYeuCau { get; set; }
 
+        [Required]
         [StringLength(10)]
         public string MaDonMuaHang { get; set; }
 

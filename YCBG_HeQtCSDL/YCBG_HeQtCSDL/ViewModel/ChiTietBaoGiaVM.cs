@@ -12,25 +12,19 @@ namespace YCBG_HeQtCSDL.ViewModel
 {
     public class ChiTietBaoGiaVM
     {
-        [DisplayName("Mã mặt hàng")]
         public string MaSP { get; set; }
-        [DisplayName("Tên mặt hàng")]
         public string TenMatHang { get; set; }
-        [DisplayName("Nhà cung cấp")]
-        public string TenNCC { get; set; }
-        [DisplayName("Đơn giá")]
+        public string TenNPP { get; set; }
         public decimal DonGia{ get; set; }
-        [DisplayName("Số lượng")]
         public int SoLuong { get; set; }
-        [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
 
         public ChiTietBaoGiaVM() { }
-        public ChiTietBaoGiaVM(string maSP, string tenMatHang, string tenNCC, decimal donGia, int soLuong, string ghiChu)
+        public ChiTietBaoGiaVM(string maSP, string tenMatHang, string tenNPP, decimal donGia, int soLuong, string ghiChu)
         {
             MaSP = maSP;
             TenMatHang = tenMatHang;
-            TenNCC = tenNCC;
+            TenNPP = tenNPP;
             DonGia = donGia;
             SoLuong = soLuong;
             GhiChu = ghiChu;
@@ -39,7 +33,7 @@ namespace YCBG_HeQtCSDL.ViewModel
         {
             MaSP = ob.MaSP;
             TenMatHang = ob.TenMatHang;
-            TenNCC = ob.TenNCC;
+            TenNPP = ob.TenNPP;
             DonGia = ob.DonGia;
             SoLuong = ob.SoLuong;
             GhiChu = ob.GhiChu;

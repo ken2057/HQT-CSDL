@@ -9,21 +9,15 @@ namespace YCBG_HeQtCSDL.ViewModel
 {
     class ListChiTIetYeuCauBaoGia
     {
-        [DisplayName("Nhà cung cấp")]
-        public string NhaCungCap { get; set; }
+        public string NhaPhanPhoi { get; set; }
 
-        [DisplayName("Mã sản phẩm")]
         public int MaSP { get; set; }
 
-        [DisplayName("Tên Sản Phẩm")]
         public string TenSanPham { get; set; }
 
-        [DisplayName("Số lượng")]
         public int SoLuong { get; set; }
-        [DisplayName("Tình trạng")]
         public string TinhTrang { get; set; }
 
-        [DisplayName("Giá đã báo")]
         public decimal GiaDaBao { get; set; }
         
     }

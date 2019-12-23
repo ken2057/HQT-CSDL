@@ -78,8 +78,8 @@
     <Compile Include="EF\DonMuaHang.cs" />
     <Compile Include="EF\KeHoachMuaHang.cs" />
     <Compile Include="EF\Model1.cs" />
-    <Compile Include="EF\NCC.cs" />
     <Compile Include="EF\NhanVien.cs" />
+    <Compile Include="EF\NhaPhanPhoi.cs" />
     <Compile Include="EF\PhieuNhapKho.cs" />
     <Compile Include="EF\PhongBan.cs" />
     <Compile Include="EF\Role.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="EF\YeuCauMuaHang.cs" />
     <Compile Include="Func\createObject.cs" />
     <Compile Include="Func\getData.cs" />
+    <Compile Include="Func\utils.cs" />
     <Compile Include="list_CTYCBG.xaml.cs">
       <DependentUpon>list_CTYCBG.xaml</DependentUpon>
     </Compile>

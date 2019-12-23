@@ -16,8 +16,8 @@ namespace YCBG_HeQtCSDL.EF
         }
 
         [Key]
-        [StringLength(10)]
-        public string MaYCBaoGia { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int MaYCBaoGia { get; set; }
 
         public DateTime? NgayYCBaoGia { get; set; }
 

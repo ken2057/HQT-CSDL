@@ -12,12 +12,12 @@ namespace YCBG_HeQtCSDL.EF
         [Key]
         [Column(Order = 0)]
         [StringLength(10)]
-        public string MaNCC { get; set; }
+        public string MaNPP { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [StringLength(10)]
-        public string MaSP { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int MaSP { get; set; }
 
         [Key]
         [Column(Order = 2)]

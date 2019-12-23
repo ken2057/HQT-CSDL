@@ -11,20 +11,13 @@ namespace YCBG_HeQtCSDL.ViewModel
 {
     public class ChiTietYeuCauBaoGiaVM
     {
-        [DisplayName("Ngày yêu cầi")]
         public string NgayYCBG { get; set; }
-        [DisplayName("Người gởi")]
         public string MaNhanVien { get; set; }
-        [DisplayName("Tên nhà cung cấp")]
-        public string TenNCC { get; set; }
-        [DisplayName("Mã sản phẩm")]
+        public string TenNPP { get; set; }
         public string MaSP { get; set; }
-        [DisplayName("Tên sản phẩm")]
         public string TenSP { get; set; }
         
-        [DisplayName("Số lượng mua")]
         public string SL { get; set; }
-        [DisplayName("Giá đã báo")]
         public string Gia { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,9 +26,11 @@ namespace YCBG_HeQtCSDL
     public partial class CTBaoGia : Window
     {
         public bool isClosed;
+        public bool isSaved;
+        public YeuCauBaoGiaVM clickedYCGB;
+        public ChiTietYeuCauBaoGiaVM clickedCTYCBG;
+
         string connectionString;
-        YeuCauBaoGiaVM clickedYCGB;
-        ChiTietYeuCauBaoGiaVM clickedCTYCBG;
 
         public CTBaoGia(string connectionString, YeuCauBaoGiaVM ycbgVM, ChiTietYeuCauBaoGiaVM ctYCBGVM)
         {
@@ -37,62 +40,40 @@ namespace YCBG_HeQtCSDL
             this.clickedCTYCBG = ctYCBGVM;
             this.clickedYCGB = ycbgVM;
 
-            get_CTYCBH();
-        }
-        private void get_CTYCBH()
-        {
-
-            SqlDataReader rdr = null;
-            //SqlDataReader rdr_getTenSP = null;
-            using (var conn = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("sp_getDetailCTYCBG", conn)
+            lbNCC.Content = ctYCBGVM.TenNPP;
+            lbTenSP.Content = ctYCBGVM.MaSP;
+            lbSL.Content = ctYCBGVM.SL;
+            if(ctYCBGVM.Gia != null)
             {
-                CommandType = CommandType.StoredProcedure
-            })
-            {
-                try
-                {
-                    conn.Open();
-                    command.Parameters.AddWithValue("@maYCBaoGia", clickedYCGB.MaYCBG);
-                    command.Parameters.AddWithValue("@maNCC", clickedCTYCBG.TenNCC);
-                    command.Parameters.AddWithValue("@maSP", clickedCTYCBG.MaSP);
-                    rdr = command.ExecuteReader();
-                    
-                    while (rdr.Read())
-                    {
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG = clickedYCGB.NgayYCBG;
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien = clickedYCGB.MaNV;
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC = rdr["MaNCC"].ToString();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP = rdr["MaSP"].ToString();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.SL = rdr["SLSeMua"].ToString();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.Gia = rdr["GiaDaBao"].ToString();
-                        list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP = rdr["TenSanPham"].ToString();
-                    }
-
-                    lbNgay.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.NgayYCBG;
-                    lbNguoiPhuTrach.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.MaNhanVien;
-                    lbNCC.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.TenNCC;
-                    lbMaSP.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.MaSP;
-                    lbTenSP.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.TenSP;
-                    lbSL.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.SL;
-                    lbGiaDaBao.Content = list_CTYCBG.chiTietYeuCauBaoGiaVM.Gia;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "Lỗi");
-                }
-                finally
-                {
-                    conn.Close();
-                }
+                txtGiaDaBao.Text = ctYCBGVM.Gia;
+                txtGiaDaBao.IsEnabled = false;
+                btnLuu.IsEnabled = false;
             }
+
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             isClosed = true;
+        }
+
+        private void txtGiaDaBao_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void btnLuu_Click(object sender, RoutedEventArgs e)
+        {
+            isSaved = true;
+            clickedCTYCBG.Gia = txtGiaDaBao.Text;
+            Close();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

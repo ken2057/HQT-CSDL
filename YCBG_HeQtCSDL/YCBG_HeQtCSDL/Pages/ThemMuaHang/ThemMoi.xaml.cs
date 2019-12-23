@@ -28,7 +28,7 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
         YeuCauBaoGiaVM selectedYCBG;
         EF.KeHoachMuaHang selectedKHMua;
 
-        List<string> allMaNCC;
+        List<string> allMaNPP;
         Dictionary<int, string> allMaSP;
         List<ThemSanPhamYCBGVM> themSanPhamYCBGVMs;
         Window parent;
@@ -77,13 +77,13 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
             // add each item in listCTYCBG to list MuaHang
             listCTKHMua.ForEach(ctKHMua =>
             {
-                if (checkExistCTYCBG(ctKHMua.MaSP, ctKHMua.MaNCC))
+                if (checkExistCTYCBG(ctKHMua.MaSP, ctKHMua.MaNPP))
                 {
-                    var data = Func.getData.gia_ton_sp(connectionString, ctKHMua.MaSP, ctKHMua.MaNCC);
+                    var data = Func.getData.gia_ton_sp(connectionString, ctKHMua.MaSP, ctKHMua.MaNPP);
                     themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                             ctKHMua.MaSP,
                             ctKHMua.TenSP,
-                            ctKHMua.MaNCC,
+                            ctKHMua.MaNPP,
                             ctKHMua.SLMua,
                             decimal.Parse(data[1].ToString()),
                             int.Parse(data[0].ToString())
@@ -99,13 +99,13 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
             // add each item in listCTYCBG to list MuaHang
             listCTYCBG.ForEach(ctYCBG =>
             {
-                if (checkExistCTYCBG(ctYCBG.MaSP, ctYCBG.NhaCungCap))
+                if (checkExistCTYCBG(ctYCBG.MaSP, ctYCBG.NhaPhanPhoi))
                 {
-                    var data = Func.getData.gia_ton_sp(connectionString, ctYCBG.MaSP, ctYCBG.NhaCungCap);
+                    var data = Func.getData.gia_ton_sp(connectionString, ctYCBG.MaSP, ctYCBG.NhaPhanPhoi);
                     themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                             ctYCBG.MaSP,
                             ctYCBG.TenSanPham,
-                            ctYCBG.NhaCungCap,
+                            ctYCBG.NhaPhanPhoi,
                             ctYCBG.SoLuong,
                             decimal.Parse(data[1].ToString()),
                             int.Parse(data[0].ToString())
@@ -115,13 +115,13 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
             dtgThemHDMua.ItemsSource = themSanPhamYCBGVMs;
         }
 
-        private void resetValue(int? masp = null, string mancc = "")
+        private void resetValue(int? masp = null, string MaNPP = "")
         {
-            allMaNCC = Func.getData.getAllMaNCC(connectionString, masp);
-            allMaSP = Func.getData.getAllMaSP(connectionString, mancc);
+            allMaNPP = Func.getData.getAllMaNPP(connectionString, masp);
+            allMaSP = Func.getData.getAllMaSP(connectionString, MaNPP);
             // 
-            cboMaNCC.SelectedIndex = -1;
-            cboMaNCC.ItemsSource = allMaNCC;
+            cboMaNPP.SelectedIndex = -1;
+            cboMaNPP.ItemsSource = allMaNPP;
             // do không thể set Index = -1 khi cboMaSP đang reference tới Dictionary
             // nên tạo 1 List rỗng để set Index = -1
             cboMaSP.ItemsSource = new List<string>();
@@ -142,11 +142,11 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
 
         // check duplicate in CTYCBG
         // if exists not add into the list
-        private bool checkExistCTYCBG(int maSP, string maNCC)
+        private bool checkExistCTYCBG(int maSP, string MaNPP)
         {
             var flag = true;
             themSanPhamYCBGVMs.ForEach(ct => {
-                if (ct.MaSP == maSP && ct.NhaCungCap == maNCC)
+                if (ct.MaSP == maSP && ct.NhaPhanPhoi == MaNPP)
                     flag = false;
             });
             return flag;
@@ -154,17 +154,17 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
 
         private void cboMaSP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //getAllMaNCC(cboMaSP.SelectedValue == null ? "" : cboMaSP.SelectedValue.ToString());
+            //getAllMaNPP(cboMaSP.SelectedValue == null ? "" : cboMaSP.SelectedValue.ToString());
             if (cboMaSP.SelectedItem == null)
-                allMaNCC = Func.getData.getAllMaNCC(connectionString);
+                allMaNPP = Func.getData.getAllMaNPP(connectionString);
             else
-                allMaNCC = Func.getData.getAllMaNCC(connectionString, int.Parse(cboMaSP.SelectedValue.ToString()));
-            cboMaNCC.ItemsSource = allMaNCC;
+                allMaNPP = Func.getData.getAllMaNPP(connectionString, int.Parse(cboMaSP.SelectedValue.ToString()));
+            cboMaNPP.ItemsSource = allMaNPP;
         }
 
-        private void cboMaNCC_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboMaNPP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            allMaSP = Func.getData.getAllMaSP(connectionString, cboMaNCC.SelectedValue == null ? "" : cboMaNCC.SelectedValue.ToString());
+            allMaSP = Func.getData.getAllMaSP(connectionString, cboMaNPP.SelectedValue == null ? "" : cboMaNPP.SelectedValue.ToString());
             cboMaSP.ItemsSource = allMaSP;
         }
 
@@ -213,16 +213,16 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
                     throw new IndexOutOfRangeException();
 
                 // both comboBox not selected any thing
-                if (cboMaSP.SelectedItem != null && cboMaNCC.SelectedItem != null)
+                if (cboMaSP.SelectedItem != null && cboMaNPP.SelectedItem != null)
                 {
                     int key = int.Parse(cboMaSP.SelectedValue.ToString());
-                    if (checkExistCTYCBG(key, cboMaNCC.SelectedValue.ToString()))
+                    if (checkExistCTYCBG(key, cboMaNPP.SelectedValue.ToString()))
                     {
-                        var data = Func.getData.gia_ton_sp(connectionString, key, cboMaNCC.SelectedValue.ToString());
+                        var data = Func.getData.gia_ton_sp(connectionString, key, cboMaNPP.SelectedValue.ToString());
                         themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                                 key,
                                 allMaSP[key],
-                                cboMaNCC.SelectedValue.ToString(),
+                                cboMaNPP.SelectedValue.ToString(),
                                 int.Parse(txtSoLuong.Text),
                                 decimal.Parse(data[1].ToString()),
                                 int.Parse(data[0].ToString())
@@ -235,19 +235,19 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
                     }
                 }
                 // when only cbo MaSP selected 
-                //=> thêm yêu cầu báo giá cho các nhà cung cấp có sản phẩm đó
+                //=> thêm yêu cầu báo giá cho các Nhà phân phối có sản phẩm đó
                 else if (cboMaSP.SelectedItem != null)
                 {
-                    allMaNCC.ForEach(maNCC =>
+                    allMaNPP.ForEach(MaNPP =>
                     {
                         int key = int.Parse(cboMaSP.SelectedValue.ToString());
-                        if (checkExistCTYCBG(key, maNCC))
+                        if (checkExistCTYCBG(key, MaNPP))
                         {
-                            var data = Func.getData.gia_ton_sp(connectionString, key, maNCC);
+                            var data = Func.getData.gia_ton_sp(connectionString, key, MaNPP);
                             themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                                 key,
                                 allMaSP[key],
-                                maNCC,
+                                MaNPP,
                                 int.Parse(txtSoLuong.Text),
                                 decimal.Parse(data[1].ToString()),
                                 int.Parse(data[0].ToString())
@@ -257,19 +257,19 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
                     });
                     resetValue();
                 }
-                // when only cbo MaNCC selected 
+                // when only cbo MaNPP selected 
                 //=> thêm yêu cầu báo giá cho các sản phẩm của NCC đó
-                else if (cboMaNCC.SelectedItem != null)
+                else if (cboMaNPP.SelectedItem != null)
                 {
                     allMaSP.Keys.ToList().ForEach(SP =>
                     {
-                        if (checkExistCTYCBG(SP, cboMaNCC.SelectedValue.ToString()))
+                        if (checkExistCTYCBG(SP, cboMaNPP.SelectedValue.ToString()))
                         {
-                            var data = Func.getData.gia_ton_sp(connectionString, SP, cboMaNCC.SelectedValue.ToString());
+                            var data = Func.getData.gia_ton_sp(connectionString, SP, cboMaNPP.SelectedValue.ToString());
                             themSanPhamYCBGVMs.Add(new ThemSanPhamYCBGVM(
                                 SP,
                                 allMaSP[SP],
-                                cboMaNCC.SelectedValue.ToString(),
+                                cboMaNPP.SelectedValue.ToString(),
                                 int.Parse(txtSoLuong.Text),
                                 decimal.Parse(data[1].ToString()),
                                 int.Parse(data[0].ToString())
@@ -340,12 +340,12 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
                     DataTable table = new DataTable();
                     var colString = System.Type.GetType("System.String");
                     var colInt32 = System.Type.GetType("System.Int32");
-                    table.Columns.Add("MaNCC", colString);
+                    table.Columns.Add("MaNPP", colString);
                     table.Columns.Add("MaSP", colInt32);
                     table.Columns.Add("SLSeMua", colInt32);
                     
                     themSanPhamYCBGVMs.ForEach(t => {
-                        table.Rows.Add(t.NhaCungCap, t.MaSP, t.SoLuong);
+                        table.Rows.Add(t.NhaPhanPhoi, t.MaSP, t.SoLuong);
                     });
 
                     command.Parameters.AddWithValue("@ctMua", table);

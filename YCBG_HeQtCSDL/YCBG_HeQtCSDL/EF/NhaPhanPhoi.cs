@@ -6,23 +6,26 @@ namespace YCBG_HeQtCSDL.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Role")]
-    public partial class Role
+    [Table("NhaPhanPhoi")]
+    public partial class NhaPhanPhoi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public NhaPhanPhoi()
         {
-            Accounts = new HashSet<Account>();
+            CTSPs = new HashSet<CTSP>();
         }
 
         [Key]
-        [StringLength(20)]
-        public string RoleName { get; set; }
+        [StringLength(10)]
+        public string MaNPP { get; set; }
 
-        [Column(TypeName = "text")]
-        public string Ghi_chu { get; set; }
+        [Column(TypeName = "money")]
+        public decimal? SoTienCanTra { get; set; }
+
+        [StringLength(50)]
+        public string Email { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
+        public virtual ICollection<CTSP> CTSPs { get; set; }
     }
 }

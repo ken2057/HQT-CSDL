@@ -8,7 +8,7 @@ namespace YCBG_HeQtCSDL.EF
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=QLMuaHang")
+            : base("name=Model1")
         {
         }
 
@@ -21,8 +21,8 @@ namespace YCBG_HeQtCSDL.EF
         public virtual DbSet<CTYeuCauMua> CTYeuCauMuas { get; set; }
         public virtual DbSet<DonMuaHang> DonMuaHangs { get; set; }
         public virtual DbSet<KeHoachMuaHang> KeHoachMuaHangs { get; set; }
-        public virtual DbSet<NCC> NCCs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<NhaPhanPhoi> NhaPhanPhois { get; set; }
         public virtual DbSet<PhieuNhapKho> PhieuNhapKhoes { get; set; }
         public virtual DbSet<PhongBan> PhongBans { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -54,19 +54,11 @@ namespace YCBG_HeQtCSDL.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTKeHoachMua>()
-                .Property(e => e.MaNCC)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTKeHoachMua>()
-                .Property(e => e.MaSP)
+                .Property(e => e.MaNPP)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTMua>()
-                .Property(e => e.MaNCC)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTMua>()
-                .Property(e => e.MaSP)
+                .Property(e => e.MaNPP)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTMua>()
@@ -78,19 +70,11 @@ namespace YCBG_HeQtCSDL.EF
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<CTNhapKho>()
-                .Property(e => e.MaSP)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTNhapKho>()
                 .Property(e => e.MaNhapKho)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTSP>()
-                .Property(e => e.MaNCC)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTSP>()
-                .Property(e => e.MaSP)
+                .Property(e => e.MaNPP)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTSP>()
@@ -100,40 +84,28 @@ namespace YCBG_HeQtCSDL.EF
             modelBuilder.Entity<CTSP>()
                 .HasMany(e => e.CTKeHoachMuas)
                 .WithRequired(e => e.CTSP)
-                .HasForeignKey(e => new { e.MaNCC, e.MaSP })
+                .HasForeignKey(e => new { e.MaNPP, e.MaSP })
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CTSP>()
                 .HasMany(e => e.CTMuas)
                 .WithRequired(e => e.CTSP)
-                .HasForeignKey(e => new { e.MaNCC, e.MaSP })
+                .HasForeignKey(e => new { e.MaNPP, e.MaSP })
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CTSP>()
                 .HasMany(e => e.CTYCBaoGias)
                 .WithRequired(e => e.CTSP)
-                .HasForeignKey(e => new { e.MaNCC, e.MaSP })
+                .HasForeignKey(e => new { e.MaNPP, e.MaSP })
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CTYCBaoGia>()
-                .Property(e => e.MaNCC)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTYCBaoGia>()
-                .Property(e => e.MaSP)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTYCBaoGia>()
-                .Property(e => e.MaYCBaoGia)
+                .Property(e => e.MaNPP)
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTYCBaoGia>()
                 .Property(e => e.GiaDaBao)
                 .HasPrecision(19, 4);
-
-            modelBuilder.Entity<CTYeuCauMua>()
-                .Property(e => e.MaSP)
-                .IsUnicode(false);
 
             modelBuilder.Entity<CTYeuCauMua>()
                 .Property(e => e.MaYeuCau)
@@ -169,6 +141,11 @@ namespace YCBG_HeQtCSDL.EF
                 .WithRequired(e => e.DonMuaHang)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<DonMuaHang>()
+                .HasMany(e => e.YeuCauMuaHangs)
+                .WithRequired(e => e.DonMuaHang)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<KeHoachMuaHang>()
                 .Property(e => e.MaKeHoachMuaHang)
                 .IsUnicode(false);
@@ -180,23 +157,6 @@ namespace YCBG_HeQtCSDL.EF
             modelBuilder.Entity<KeHoachMuaHang>()
                 .HasMany(e => e.CTKeHoachMuas)
                 .WithRequired(e => e.KeHoachMuaHang)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<NCC>()
-                .Property(e => e.MaNCC)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NCC>()
-                .Property(e => e.SoTienCanTra)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<NCC>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<NCC>()
-                .HasMany(e => e.CTSPs)
-                .WithRequired(e => e.NCC)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NhanVien>()
@@ -247,6 +207,23 @@ namespace YCBG_HeQtCSDL.EF
                 .WithRequired(e => e.NhanVien)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<NhaPhanPhoi>()
+                .Property(e => e.MaNPP)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<NhaPhanPhoi>()
+                .Property(e => e.SoTienCanTra)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<NhaPhanPhoi>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<NhaPhanPhoi>()
+                .HasMany(e => e.CTSPs)
+                .WithRequired(e => e.NhaPhanPhoi)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<PhieuNhapKho>()
                 .Property(e => e.MaNhapKho)
                 .IsUnicode(false);
@@ -274,8 +251,9 @@ namespace YCBG_HeQtCSDL.EF
 
             modelBuilder.Entity<PhongBan>()
                 .HasMany(e => e.NhanViens)
-                .WithOptional(e => e.PhongBan)
-                .HasForeignKey(e => e.TenPhongBan);
+                .WithRequired(e => e.PhongBan)
+                .HasForeignKey(e => e.TenPhongBan)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Role>()
                 .Property(e => e.RoleName)
@@ -290,10 +268,6 @@ namespace YCBG_HeQtCSDL.EF
                 .HasMany(e => e.Accounts)
                 .WithRequired(e => e.Role)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SanPham>()
-                .Property(e => e.MaSP)
-                .IsUnicode(false);
 
             modelBuilder.Entity<SanPham>()
                 .Property(e => e.Thue)
@@ -313,10 +287,6 @@ namespace YCBG_HeQtCSDL.EF
                 .HasMany(e => e.CTYeuCauMuas)
                 .WithRequired(e => e.SanPham)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<YeuCauBaoGia>()
-                .Property(e => e.MaYCBaoGia)
-                .IsUnicode(false);
 
             modelBuilder.Entity<YeuCauBaoGia>()
                 .Property(e => e.TinhTrang)

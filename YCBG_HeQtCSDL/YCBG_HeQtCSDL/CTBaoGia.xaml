@@ -14,9 +14,6 @@
                         <RowDefinition />
                         <RowDefinition/>
                         <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
@@ -25,30 +22,27 @@
                         <ColumnDefinition Width="577*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="45,15,77,14.2">Ngày</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbNgay" Grid.Column="1" Grid.Row="0" ></Label>
-                    <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Người phụ trách</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbNguoiPhuTrach" Grid.Column="1" Grid.Row="1"></Label>
-                    <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Nhà Cung Cấp</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbNCC" Grid.Column="1" Grid.Row="2"></Label>
-                    <TextBlock Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Mã Sản Phẩm</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbMaSP" Grid.Column="1" Grid.Row="3"></Label>
-                    <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Tên Sản Phẩm</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbTenSP" Grid.Column="1" Grid.Row="4"></Label>
-                    <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Số Lượng</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbSL" Grid.Column="1" Grid.Row="5"></Label>
-                    <TextBlock Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Giá Đã Báo</TextBlock>
-                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbGiaDaBao" Grid.Column="1" Grid.Row="6"></Label>
-
+                    <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Nhà phân phối</TextBlock>
+                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbNCC" Grid.Column="1" Grid.Row="0"></Label>
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Tên Sản Phẩm</TextBlock>
+                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbTenSP" Grid.Column="1" Grid.Row="1"></Label>
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Số Lượng</TextBlock>
+                    <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="lbSL" Grid.Column="1" Grid.Row="2"></Label>
+                    <TextBlock Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Margin="6,15.8,37,14.2">Giá Đã Báo</TextBlock>
+                    <TextBox Name="txtGiaDaBao" 
+                             Grid.Row="3" Grid.Column="1" 
+                             HorizontalContentAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             PreviewTextInput="txtGiaDaBao_PreviewTextInput"/>
 
                     <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="10,10.4,9.8,9.6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Width="100">Email</Button>
-                        <Button Grid.Column="1" Width="100">Dong</Button>
-                    </Grid>
+                    <Button Grid.Column="0" Width="100" Content="Lưu" Name="btnLuu" Click="btnLuu_Click"/>
+                    <Button Grid.Column="1" Width="100" Content="Đóng" Name="btnClose" Click="btnClose_Click"/>
+                </Grid>
 
                 </Grid>
             </TabItem>

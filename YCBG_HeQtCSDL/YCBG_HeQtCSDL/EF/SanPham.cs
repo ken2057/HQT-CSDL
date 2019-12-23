@@ -18,8 +18,8 @@ namespace YCBG_HeQtCSDL.EF
         }
 
         [Key]
-        [StringLength(10)]
-        public string MaSP { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int MaSP { get; set; }
 
         [Required]
         [StringLength(50)]

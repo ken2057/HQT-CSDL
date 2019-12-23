@@ -20,12 +20,12 @@ namespace YCBG_HeQtCSDL.EF
         [Key]
         [Column(Order = 0)]
         [StringLength(10)]
-        public string MaNCC { get; set; }
+        public string MaNPP { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [StringLength(10)]
-        public string MaSP { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int MaSP { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? GiaMua { get; set; }
@@ -38,7 +38,7 @@ namespace YCBG_HeQtCSDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTMua> CTMuas { get; set; }
 
-        public virtual NCC NCC { get; set; }
+        public virtual NhaPhanPhoi NhaPhanPhoi { get; set; }
 
         public virtual SanPham SanPham { get; set; }
 

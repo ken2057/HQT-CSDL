@@ -44,7 +44,7 @@ namespace YCBG_HeQtCSDL.Pages.ThemMuaHang
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             chiTietYeuCauBaoGiaVM = new ChiTietYeuCauBaoGiaVM();
-            chiTietYeuCauBaoGiaVM.TenNCC = ((ListChiTIetYeuCauBaoGia)dtgList_YCBG.SelectedItem).NhaCungCap;
+            chiTietYeuCauBaoGiaVM.TenNPP = ((ListChiTIetYeuCauBaoGia)dtgList_YCBG.SelectedItem).NhaPhanPhoi;
             chiTietYeuCauBaoGiaVM.MaSP = ((ListChiTIetYeuCauBaoGia)dtgList_YCBG.SelectedItem).TenSanPham;
 
             CTBaoGia cTBaoGia = new CTBaoGia(connectionString, clickedYCBG, chiTietYeuCauBaoGiaVM);

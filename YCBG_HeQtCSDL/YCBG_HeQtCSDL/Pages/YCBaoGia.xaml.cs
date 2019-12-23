@@ -47,6 +47,7 @@ namespace YCBG_HeQtCSDL.Pages
             {
                 get_YCBG();
             }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

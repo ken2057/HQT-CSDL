@@ -11,28 +11,28 @@ begin
 		select * from YeuCauBaoGia
 end
 go
--- Lấy tất cả Mã NCC có sản phẩm cung cấp
-create proc sp_get_all_maNCC
+-- Lấy tất cả Mã npp có sản phẩm cung cấp
+create proc sp_get_all_manpp
 	@masp int
 as
 begin
 	if not @masp is null
-		select MaNCC from CTSP where MaSP = @masp
+		select manpp from CTSP where MaSP = @masp
 	else
-		select MaNCC from CTSP
-		group by MaNCC
+		select manpp from CTSP
+		group by manpp
 end
 go
--- lấy mã sp và tên sản phẩm mà tồn tại trong CTSP hoặc do NCC nào đó cung cấp
+-- lấy mã sp và tên sản phẩm mà tồn tại trong CTSP hoặc do npp nào đó cung cấp
 go
 create proc sp_get_all_masp
-	@mancc varchar(10)
+	@manpp varchar(10)
 as
 begin
-	if @mancc <> ''
+	if @manpp <> ''
 		select MaSP, TenSanPham
 		from SanPham
-		where MaSP in (select MaSP from CTSP where MaNCC = @mancc)
+		where MaSP in (select MaSP from CTSP where manpp = @manpp)
 	else
 		select MaSP, TenSanPham
 		from SanPham
@@ -48,18 +48,18 @@ begin
 	-- declare
 	declare cr_CTYCBG cursor forward_only
 	for select * from @ctycbg
-	declare @mancc varchar(10), @masp varchar(10), @sl int
+	declare @manpp varchar(10), @masp varchar(10), @sl int
 	open cr_CTYCBG
-	fetch next from cr_CTYCBG into @mancc, @masp, @sl
+	fetch next from cr_CTYCBG into @manpp, @masp, @sl
 	-- tran
 	set xact_abort on
 	begin tran
 		while @@FETCH_STATUS = 0
 		begin
-			insert into CTYCBaoGia(MaNCC, MaSP, SLSeMua, MaYCBaoGia)
-			values (@mancc, @masp, @sl, @maYCBG)
+			insert into CTYCBaoGia(manpp, MaSP, SLSeMua, MaYCBaoGia)
+			values (@manpp, @masp, @sl, @maYCBG)
 
-			fetch next from cr_CTYCBG into @mancc, @masp, @sl
+			fetch next from cr_CTYCBG into @manpp, @masp, @sl
 		end
 	commit tran
 	close cr_CTYCBG
@@ -86,7 +86,7 @@ begin
 		values (
 			@ma,
 			GETDATE(), 
-			N'Đã tạo', 
+			N'Da tao', 
 			(select manv from Account where tendangnhap in (select ORIGINAL_LOGIN()))
 		)
 		-- create CTYCBH
@@ -121,13 +121,13 @@ begin
 end
 go
 --Chi tiết 1 YCBG
---create proc sp_getDetailCTYCBG @maYCBaoGia char(10), @maNCC char(10), @maSP char(10)
+--create proc sp_getDetailCTYCBG @maYCBaoGia char(10), @manpp char(10), @maSP char(10)
 --as
 --begin
 --	select * 
 --	from CTYCBaoGia A, (select MaSP, TenSanPham from SanPham) as B
 --	where MaYCBaoGia = @maYCBaoGia
---		and A.MaNCC = @maNCC
+--		and A.manpp = @manpp
 --		and A.MaSP = B.MaSP
 --end
 go
@@ -149,19 +149,19 @@ begin
 	declare cr_CTMua cursor forward_only
 	for select * from @ctycbg
 	--
-	declare @mancc varchar(10), @masp varchar(10), @sl int
+	declare @manpp varchar(10), @masp varchar(10), @sl int
 	open cr_CTMua
 
-	fetch next from cr_CTMua into @mancc, @masp, @sl
+	fetch next from cr_CTMua into @manpp, @masp, @sl
 	while @@FETCH_STATUS = 0
 	begin 
 		declare @tien money
-		select @tien = giamua from CTSP where MaSP = @masp and MaNCC = @mancc
+		select @tien = giamua from CTSP where MaSP = @masp and manpp = @manpp
 
 		insert into CTMua
-		values (@mancc, @masp, @maHD, @sl, @tien)
+		values (@manpp, @masp, @maHD, @sl, @tien)
 
-		fetch next from cr_CTMua into @mancc, @masp, @sl
+		fetch next from cr_CTMua into @manpp, @masp, @sl
 	end
 	close cr_CTMua
 	deallocate cr_CTMua
@@ -188,7 +188,7 @@ begin
 		values (
 			@ma,
 			GETDATE(), 
-			N'Đã tạo', 
+			N'Da tao', 
 			(select manv from Account where tendangnhap in (select ORIGINAL_LOGIN())),
 			0
 		)
@@ -206,68 +206,12 @@ end
 go
 create proc sp_get_gia_ton_sp
 	@masp int,
-	@mancc varchar(10)
+	@manpp varchar(10)
 as
 begin
 	select GiaMua, SoLuongTon
 	from ctsp A, (select SoLuongTon from SanPham where MaSP = @masp) B
-	where A.MaSP = @masp and A.MaNCC = @mancc
-end
-go
--- Update Chi Tiết YCBG
-create proc sp_update_CTYCBG
-				@maYCBG varchar(10),
-				@maNCC_now varchar(10),
-				@maSP_now int,
-				@maNCC_to_change varchar(10),
-				@maSP_to_change varchar(10),
-				@sl int,
-				@gia money
-as
-begin
-	update CTYCBaoGia
-	set MaNCC = @maNCC_to_change, MaSP = @maNCC_to_change, SLSeMua = @sl, GiaDaBao = @gia
-	where MaYCBaoGia = @maYCBG and MaNCC = @maNCC_now and MaSP = @maSP_now
-end
-
-go
--- Update (Thêm) Chi Tiết YCBG
-create proc sp_update_add_CTYCBG
-				@maYCBG varchar(10),
-				@maNCC varchar(10),
-				@maSP int,
-				@sl int,
-				@gia money
-as
-begin
-	Insert into CTYCBaoGia values(@maNCC,@maSP,@maYCBG,@sl,@gia)
-end
-
-go
-
--- Update (Xoá) Chi Tiết YCBG
-create proc sp_update_delete_CTYCBG
-				@maYCBG varchar(10),
-				@maNCC varchar(10),
-				@maSP int
-as
-begin
-	delete from CTYCBaoGia where MaYCBaoGia = @maYCBG and MaNCC = @maNCC and MaSP = @maSP
-end
-
-go
-
--- Update Giá Chi Tiết YCBG sau khi nhận được phản hồi
-create proc sp_update_rep_price_CTYCBG
-				@maYCBG varchar(10),
-				@maNCC varchar(10),
-				@maSP int,
-				@gia money
-as
-begin
-	update CTYCBaoGia
-	set GiaDaBao = @gia
-	where MaYCBaoGia = @maYCBG and MaNCC = @maNCC and MaSP = @maSP
+	where A.MaSP = @masp and A.manpp = @manpp
 end
 go
 create proc sp_get_kehoachmua
@@ -284,7 +228,7 @@ create proc sp_get_ctkhmua
 	@maKHMua varchar(20)
 as
 begin
-	select MaNCC, A.MaSP, SLDuTinhMua, TenSanPham
+	select manpp, A.MaSP, SLDuTinhMua, TenSanPham
 	from CTKeHoachMua A, SanPham B
 	where MaKeHoachMuaHang = @maKHMua
 	and A.MaSP = B.MaSP
@@ -294,9 +238,62 @@ create proc sp_get_ctmua
 	@MaDonMuaHang varchar(20)
 as
 begin
-	select MaNCC, A.MaSP, SLMua, TenSanPham, A.DonGia
+	select manpp, A.MaSP, SLMua, TenSanPham, A.DonGia
 	from CTMua A, SanPham B
 	where MaDonMuaHang = @MaDonMuaHang
 	and A.MaSP = B.MaSP
+end
+go
+create proc sp_gui_YCBG
+	@maYCBG varchar(10)
+as
+begin
+	begin tran
+		update yeucaubaogia
+		set TinhTrang = 'Da gui'
+		where MaYCBaoGia = @maYCBG
+	commit tran
+	if @@error <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
+end
+go
+create proc sp_update_gia_ctycbg
+	@dsCTYCBG update_CTYCBGType readonly
+as
+begin
+	declare cr_update_CTYCBG cursor forward_only
+	for select * from @dsCTYCBG
+
+	declare @maNPP varchar(10), @maSP int, @gia money
+	
+	open cr_update_CTYCBG
+	fetch next from cr_update_CTYCBG into @maNPP, @maSP, @gia
+
+	set xact_abort on
+	begin tran
+		while @@FETCH_STATUS=0
+		begin
+			update CTYCBaoGia
+			set giadabao = @gia
+			where manpp = @maNPP
+				and maSP = @maSP
+			fetch next from cr_update_CTYCBG into @maNPP, @maSP, @gia
+		end
+		close cr_update_CTYCBG
+		deallocate cr_update_CTYCBG
+	commit tran
+	
+	if @@error <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
 end
 go

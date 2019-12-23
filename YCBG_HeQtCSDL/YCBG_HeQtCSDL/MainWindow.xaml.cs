@@ -4,7 +4,7 @@ using System.Windows;
 using YCBG_HeQtCSDL.Pages;
 using YCBG_HeQtCSDL.ViewModel;
 
-namespace YCBG_HeQtCSDL
+namespace YCBG_HeQtCSDL 
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

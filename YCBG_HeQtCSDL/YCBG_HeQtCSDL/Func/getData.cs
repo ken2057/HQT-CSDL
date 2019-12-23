@@ -12,7 +12,7 @@ namespace YCBG_HeQtCSDL.Func
 {
     class getData
     {
-        public static List<object> gia_ton_sp(string connectionString,int masp, string mancc)
+        public static List<object> gia_ton_sp(string connectionString,int masp, string MaNPP)
         {
             SqlDataReader rdr = null;
 
@@ -30,7 +30,7 @@ namespace YCBG_HeQtCSDL.Func
                     conn.Open();
 
                     command.Parameters.AddWithValue("@masp", masp);
-                    command.Parameters.AddWithValue("@mancc", mancc);
+                    command.Parameters.AddWithValue("@MaNPP", MaNPP);
                     rdr = command.ExecuteReader();
 
 
@@ -52,7 +52,7 @@ namespace YCBG_HeQtCSDL.Func
             }
         }
 
-        public static Dictionary<int, string> getAllMaSP(string connectionString, string mancc = "")
+        public static Dictionary<int, string> getAllMaSP(string connectionString, string MaNPP = "")
         {
             Dictionary<int, string> allMaSP = new Dictionary<int, string>();
             using (var conn = new SqlConnection(connectionString))
@@ -64,7 +64,7 @@ namespace YCBG_HeQtCSDL.Func
                 try
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("@mancc", mancc);
+                    command.Parameters.AddWithValue("@MaNPP", MaNPP);
                     var rdr = command.ExecuteReader();
 
                     allMaSP = new Dictionary<int, string>();
@@ -84,12 +84,12 @@ namespace YCBG_HeQtCSDL.Func
             }
         }
 
-        public static List<string> getAllMaNCC(string connectionString, int? masp = null)
+        public static List<string> getAllMaNPP(string connectionString, int? masp = null)
         {
-            List<string> allMaNCC = new List<string>();
+            List<string> allMaNPP = new List<string>();
 
             using (var conn = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("sp_get_all_maNCC", conn)
+            using (var command = new SqlCommand("sp_get_all_MaNPP", conn)
             {
                 CommandType = CommandType.StoredProcedure
             })
@@ -105,9 +105,9 @@ namespace YCBG_HeQtCSDL.Func
 
                     var rdr = command.ExecuteReader();
 
-                    allMaNCC = new List<string>();
+                    allMaNPP = new List<string>();
                     while (rdr.Read())
-                        allMaNCC.Add(rdr["MaNCC"].ToString());
+                        allMaNPP.Add(rdr["MaNPP"].ToString());
                 }
                 catch (Exception e)
                 {
@@ -117,7 +117,7 @@ namespace YCBG_HeQtCSDL.Func
                 {
                     conn.Close();
                 }
-                return allMaNCC;
+                return allMaNPP;
             }
         }
 
@@ -144,7 +144,7 @@ namespace YCBG_HeQtCSDL.Func
                     while (rdr.Read())
                     {
                         listChiTIetYeuCauBaoGia = new ListChiTIetYeuCauBaoGia();
-                        listChiTIetYeuCauBaoGia.NhaCungCap = rdr["MaNCC"].ToString();
+                        listChiTIetYeuCauBaoGia.NhaPhanPhoi = rdr["MaNPP"].ToString();
                         listChiTIetYeuCauBaoGia.TenSanPham = rdr["TenSanPham"].ToString();
                         listChiTIetYeuCauBaoGia.SoLuong = int.Parse(rdr["SLSeMua"].ToString());
                         listChiTIetYeuCauBaoGia.GiaDaBao = decimal.Parse(rdr["GiaDaBao"].ToString());
@@ -189,7 +189,7 @@ namespace YCBG_HeQtCSDL.Func
                         lstCTYCBG.Add(new ChiTietYeuCauBaoGiaVM
                         {
                             MaSP = rdr["maSP"].ToString(),
-                            TenNCC = rdr["MaNCC"].ToString(),
+                            TenNPP = rdr["MaNPP"].ToString(),
                             SL = rdr["SLSeMua"].ToString()
                         });
                     }
@@ -316,7 +316,7 @@ namespace YCBG_HeQtCSDL.Func
                     while (rdr.Read())
                     {
                         CTKHMua = new CTKHMuaVM();
-                        CTKHMua.MaNCC = rdr["MaNCC"].ToString();
+                        CTKHMua.MaNPP = rdr["MaNPP"].ToString();
                         CTKHMua.TenSP = rdr["TenSanPham"].ToString();
                         CTKHMua.MaSP = int.Parse(rdr["MaSP"].ToString());
                         CTKHMua.SLMua = int.Parse(rdr["SLDuTinhMua"].ToString());
@@ -408,7 +408,7 @@ namespace YCBG_HeQtCSDL.Func
                     while (rdr.Read())
                     {
                         ctMua = new CTHDMua();
-                        ctMua.MaNCC = rdr["MaNCC"].ToString();
+                        ctMua.MaNPP = rdr["MaNPP"].ToString();
                         ctMua.TenSP = rdr["TenSanPham"].ToString();
                         ctMua.MaSP = int.Parse(rdr["MaSP"].ToString());
                         ctMua.SoLuong = int.Parse(rdr["SLMua"].ToString());

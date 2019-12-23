@@ -37,12 +37,32 @@ create trigger trg_CapNhat_GiaSP
 	for update
 as
 begin
-	if update(GiaDaBao)
+	declare cr_trg_update_CTYCBG cursor forward_only
+	for select MaNPP, MaSP, GiaDaBao, MaYCBaoGia from inserted
+
+	declare @maNPP varchar(10), @maSP int, @gia money, @maYCBG int
+	
+	open cr_trg_update_CTYCBG
+	fetch next from cr_trg_update_CTYCBG into @maNPP, @maSP, @gia, @maYCBG
+
+	while @@FETCH_STATUS=0
 	begin
 		update CTSP
-		set GiaMua = (select GiaDaBao from inserted)
-		where MaSP = (select MaSP from inserted)
-		and MaNCC = (select MaNCC from inserted)
+		set GiaMua = @gia
+		where MaSP = @maSP
+			and manpp = @maNPP
+
+		fetch next from cr_trg_update_CTYCBG into @maNPP, @maSP, @gia, @maYCBG
 	end
+	close cr_trg_update_CTYCBG 
+	deallocate cr_trg_update_CTYCBG 
+	
+	-- update tinh trang cua YCBG
+	if not exists (select masp from CTYCBaoGia 
+					where maycbaogia = @maYCBG
+						and GiaDaBao = 0)
+		update yeucaubaogia
+		set tinhtrang = 'Da bao xong'
+		where maycbaogia = @maYCBG
 end
 go

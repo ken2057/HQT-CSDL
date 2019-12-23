@@ -211,7 +211,101 @@ as
 begin
 	select GiaMua, SoLuongTon
 	from ctsp A, (select SoLuongTon from SanPham where MaSP = @masp) B
-	where A.MaSP = @masp and A.manpp = @manpp
+	where A.MaSP = @masp and A.MaNCC = @mancc
+end
+go
+-- Update Chi Tiết YCBG
+create proc sp_update_CTYCBG
+	@maYCBG varchar(10),
+	@maNCC_now varchar(10),
+	@maSP_now int,
+	@maNCC_to_change varchar(10),
+	@maSP_to_change varchar(10),
+	@sl int,
+	@gia money
+as
+begin
+	begin tran
+		update CTYCBaoGia
+		set MaNCC = @maNCC_to_change, MaSP = @maNCC_to_change, SLSeMua = @sl, GiaDaBao = @gia
+		where MaYCBaoGia = @maYCBG and MaNCC = @maNCC_now and MaSP = @maSP_now
+	commit tran
+	if @@ERROR <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
+
+end
+
+go
+-- Update (Thêm) Chi Tiết YCBG
+create proc sp_update_add_CTYCBG
+	@maYCBG varchar(10),
+	@maNCC varchar(10),
+	@maSP int,
+	@sl int,
+	@gia money
+as
+begin
+	begin tran
+		insert into CTYCBaoGia values(@maNCC,@maSP,@maYCBG,@sl,@gia)
+	commit tran
+	if @@ERROR <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
+end
+
+go
+
+-- Update (Xoá) Chi Tiết YCBG
+create proc sp_update_delete_CTYCBG
+	@maYCBG varchar(10),
+	@maNCC varchar(10),
+	@maSP int
+as
+begin
+	begin tran
+		delete from CTYCBaoGia where MaYCBaoGia = @maYCBG and MaNCC = @maNCC and MaSP = @maSP
+	commit tran
+	if @@ERROR <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
+
+end
+
+go
+
+-- Update Giá Chi Tiết YCBG sau khi nhận được phản hồi
+create proc sp_update_rep_price_CTYCBG
+	@maYCBG varchar(10),
+	@maNCC varchar(10),
+	@maSP int,
+	@gia money
+as
+begin
+	begin tran
+		update CTYCBaoGia
+		set GiaDaBao = @gia
+		where MaYCBaoGia = @maYCBG and MaNCC = @maNCC and MaSP = @maSP
+	commit tran
+	if @@ERROR <> 0
+	begin
+		ROLLBACK
+		DECLARE @ErrorMessage VARCHAR(2000)
+		SELECT @ErrorMessage = 'Lỗi: ' + ERROR_MESSAGE()
+		RAISERROR(@ErrorMessage, 16, 1)
+	end
 end
 go
 create proc sp_get_kehoachmua
